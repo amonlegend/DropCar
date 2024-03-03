@@ -17,12 +17,22 @@ def validate_contact(value):
 
 #creating a User which extends Django Abstract User table
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=335)
     phone = models.CharField(max_length=10,validators=[validate_contact])
-    # address = models.CharField(max_length=225,default="")
-    # dob = models.DateField(null=True, blank=True)
     is_admin = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=True)
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['full_name']
 
     def __str__(self):
-        return self.username
+        return self.email
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User , on_delete=models.CASCADE)
+    forget_password_token = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.email

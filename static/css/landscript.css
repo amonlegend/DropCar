@@ -78,18 +78,11 @@ header{
     z-index: 10001;
     display: none;
 }
-.header-btn button{
-    outline: 2px solid transparent;
-}
-.header-btn button{
-    outline: none;
-    border: none;
-    font-size: 1rem;
+.header-btn a{
     padding: 10px 20px;
     color: var(--text-color);
     font-weight: 500;
 }
-
 .header-btn .log-in{
     background: #005377;
     color: #fff;
@@ -436,179 +429,6 @@ header{
         grid-template-columns: repeat(auto-fit,minmax(254px,auto));
     }
 }
-.blur-bg-overlay{
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    pointer-events: none;
-    backdrop-filter: blur(5px);
-    transition: 0.1s ease;
-}
-.show-popup .blur-bg-overlay{
-    opacity: 1;
-    pointer-events: auto;
-}
-.form-popup{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    max-width: 720px;
-    width: 100%;
-    opacity: 0;
-    pointer-events: none;
-    background: #fff;
-    border: 2px solid #fff;
-    transform: translate(-50%, -50%);
-}
-.show-popup .form-popup{
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%);
-    transition: transform 0.3s ease, opacity 0.1s;
-}
-.form-popup .close-btn{
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    color: #878484;
-    cursor: pointer;
-}
-.form-popup .form-box{
-    display: flex;
-}
-.form-box .form-details{
-    max-width: 330px;
-    width: 100%;
-    color: #fff;
-    display: flex;
-    padding: 0 20px;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: url(login.jpg);
-    background-size: cover;
-    background-position: center;
-}
-.login .form-details{
-    background: url(login.jpg);
-    background-size: cover;
-    background-position: center;
-}
-.signup .form-details{
-    background: url(signup.jpg);
-    background-size: cover;
-    background-position: center;
-}
-.form-box h2 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-.form-box .form-content{
-    width: 100%;
-    padding: 35px;
-}
-form .input-field{
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
-}
-form .input-field input{
-    width: 100%;
-    height: 100%;
-    outline: none;
-    font-size: 0.95rem;
-    border-radius: 3px;
-    border: 1px solid #717171;
-}
-.input-field input:focus{
-    border-color: #474fa0;
-}
-
-.input-field input:is(:focus, :valid){
-    padding: 16px 15px 0;
-}
-form .input-field label{
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    color: #717171;
-    pointer-events: none;
-    transform: translateY(-50%);
-    transition:  0.2s ease;
-}
-.input-field input:is(:focus, :valid)~ label{
-    color: #474fa0;
-    font-size: 0.75rem;
-    transform: translateY(-120%);
-
-}
-.form-box a{
-    color: #474fa0;
-    text-decoration: none;
-}
-.form-box a:hover{
-    text-decoration: underline;
-}
-.form-box :where(.forgot-pass, .policy-text) {
-    display: inline-flex;
-    margin-top: 14px;
-    font-size: 0.95rem;
-}
-form button{
-    width: 100%;
-    outline: none;
-    border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 14px 0;
-    border-radius: 3px;
-    margin: 25px 0;
-    color: #fff;
-    cursor: pointer;
-    background: #474fa0;
-    transition: 0.2 ease;
-}
-form button:hover{
-    background: var(--main-color);
-}
-.form-box .bottom-link{
-    text-align: center;
-}
-.form-popup .signup,
-.form-popup.show-signup .login{
-    display: none;
-}
-.form-popup.show-signup .signup{
-    display: flex;
-}
-.signup .policy-text{
-    display: flex;
-    align-items: center;
-}
-.signup .policy-text input{
-    width: 14px;
-    height: 14px;
-    margin-right: 7px;
-}
-
-@media (max-width: 760px){
-    .form-popup{
-        width: 95%;
-    }
-
-    .form-box .form-details{
-        display: none;
-    }
-
-    .form-box .form-content{
-        padding: 30px 20px;
-    }
-}
 /* Footer Styling */
 footer{
     background: #17183B;
@@ -704,3 +524,53 @@ footer{
     margin: 0;
     font-size: 16px;
 }
+
+
+
+
+
+/* Dropdown CSS */
+
+/* Dropdown Button */
+.dropbtn {
+  border: none;
+  outline: none;
+  color: #06A77D;
+  padding: 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  border-top: 5px solid transparent; /* Add this line */
+  display: none;
+  position: absolute;
+  background-color: #06A77D;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 14px 18px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+

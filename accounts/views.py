@@ -4,6 +4,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import User
+import uuid
+from .helpers import send_forget_password_mail
+from .models import *
+
+
 
 # Create your views here.
 def index(request):
@@ -11,6 +16,7 @@ def index(request):
 
 def loggedin(request):
     return render(request, "loggedin.html")
+
 
 # check if string is email
 def is_email(string):
@@ -21,14 +27,9 @@ def is_email(string):
 
 def registration_view(request):
     if request.method == 'POST':
-        # username = request.POST.get('username')
         full_name = request.POST.get("full_name")
-        # last_name = request.POST.get("last_name")
         email = request.POST.get('email')
-        # dob = request.POST.get('dob')
-        # address = request.POST.get('address')
         phone = request.POST.get('phone')
-        # gender = request.POST.get('gender')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
@@ -36,17 +37,11 @@ def registration_view(request):
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email already exists')
             context = {
-                # "username": username,
                 "full_name": full_name,
-                # "last_name": last_name,
                 "email": email,
-                # "dob": dob,
-                # "address": address,
                 "phone": phone,
-                # "gender": gender,
                 "password1": password1,
                 "password2": password2,
-                # "username_error": "User already exists"
             }
             return render(request, 'index.html', context=context)
 
@@ -60,17 +55,14 @@ def registration_view(request):
 
 
 def login_view(request):
+    user_is_authenticated = False
+    button_text = "Login"
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        if is_email(email):
-            username = User.objects.get(email=email).username
-            user_exists = User.objects.filter(email=email).exists()
-        else:
-            user_exists = User.objects.filter(
-                username=email).exists()
-            username = email
+        # Check if a user with the given email exists
+        user_exists = User.objects.filter(email=email).exists()
 
         if not user_exists:
             messages.error(request, 'User does not exist')
@@ -79,9 +71,9 @@ def login_view(request):
                 "password": password,
                 "error": "User does not exist"
             }
-            return render(request, 'login.html', context)
+            return render(request, 'UserLogin.html', context)
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is None:
             messages.error(request, 'Invalid Credentials')
             context = {
@@ -89,11 +81,11 @@ def login_view(request):
                 "password": password,
                 "pwerror": "Invalid Credentials"
             }
-            return render(request, 'login.html', context)
+            return render(request, 'UserLogin.html', context)
         elif user is not None and user.is_superuser and user.is_staff:
             login(request, user)
-            return redirect("/admin")
-        if user is not None and user.is_customer or user.is_farmer:
+            return redirect("/admin/")
+        if user is not None and user.is_customer:
             login(request, user)
             user_info = {
                 "is_authenticated": True,
@@ -104,12 +96,67 @@ def login_view(request):
             }
             request.session['user_info'] = user_info
             messages.success(request, 'Login Successful')
-            return redirect("loggedin")
+            return redirect("/")
         
+        else:
+            if request.user.is_authenticated:
+                user_is_authenticated = True
+                button_text = "Profile"
 
-    return render(request, 'login.html')
+    return render(request, 'UserLogin.html' , {"user_is_authenticated": user_is_authenticated, "button_text": button_text})
 
 
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def ChangePassword(request, token):
+    try:
+        profile_obj = Profile.objects.get(forget_password_token=token)
+        user = profile_obj.user
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            confirm_password = request.POST.get('confirm_password')
+            ("Passowrd liyo ki nai")
+            if new_password != confirm_password:
+                messages.error(request, 'Passwords do not match.')
+                return render(request, 'change-password.html', {'token': token})
+            user.set_password(new_password)
+            user.save()
+            
+            # Clear forget password token
+            profile_obj.forget_password_token = ''
+            profile_obj.save()
+            
+            messages.success(request, 'Password changed successfully. Please login with your new password.')
+            return redirect('login')
+    except Profile.DoesNotExist:
+        messages.error(request, 'Invalid token.')
+        return redirect('/forget-password/')
+    except Exception as e:
+        messages.error(request, 'An error occurred.')
+        print(e)
+    
+    return render(request, 'change-password.html', {'token': token})
+
+
+def ForgetPassword(request):
+        if request.method == 'POST':
+            email = request.POST.get('email')
+            
+            if not User.objects.filter(email=email).exists():
+                messages.error(request, 'No user found with this email.')
+                return redirect('/forget-password/')
+            else:
+                user_obj = User.objects.get(email=email)
+                token = str(uuid.uuid4())
+                profile_obj, created = Profile.objects.get_or_create(user=user_obj)
+                profile_obj.forget_password_token = token
+                profile_obj.save()
+                send_forget_password_mail(user_obj.email, token)
+                return redirect('forget_message')
+
+        return render(request, 'forget-password.html')
+    
+def ForgetMessage(request):
+    return render(request, 'forget-message.html')
