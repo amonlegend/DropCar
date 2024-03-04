@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import User
+from .models import CustomUser
 import uuid
 from .helpers import send_forget_password_mail
 from .models import *
@@ -34,7 +34,7 @@ def registration_view(request):
         password2 = request.POST.get('password2')
 
         # check if user exists
-        if User.objects.filter(email=email).exists():
+        if CustomUser.objects.filter(email=email).exists():
             messages.error(request, 'Email already exists')
             context = {
                 "full_name": full_name,
@@ -46,12 +46,12 @@ def registration_view(request):
             return render(request, 'index.html', context=context)
 
         if password1 == password2:
-            user = User(email=email, full_name=full_name, phone=phone)
+            user = CustomUser(email=email, full_name=full_name, phone=phone)
             user.set_password(password1)
             user.save()
             messages.success(request, 'Registration Successful')
             return redirect('/')
-    return render(request, 'index.html')
+    return render(request, 'UserLogin.html')
 
 
 def login_view(request):
@@ -62,7 +62,7 @@ def login_view(request):
         password = request.POST.get('password')
 
         # Check if a user with the given email exists
-        user_exists = User.objects.filter(email=email).exists()
+        user_exists = CustomUser.objects.filter(email=email).exists()
 
         if not user_exists:
             messages.error(request, 'User does not exist')
@@ -144,11 +144,11 @@ def ForgetPassword(request):
         if request.method == 'POST':
             email = request.POST.get('email')
             
-            if not User.objects.filter(email=email).exists():
+            if not CustomUser.objects.filter(email=email).exists():
                 messages.error(request, 'No user found with this email.')
                 return redirect('/forget-password/')
             else:
-                user_obj = User.objects.get(email=email)
+                user_obj = CustomUser.objects.get(email=email)
                 token = str(uuid.uuid4())
                 profile_obj, created = Profile.objects.get_or_create(user=user_obj)
                 profile_obj.forget_password_token = token

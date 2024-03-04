@@ -243,3 +243,9 @@ input {
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
 }
+
+
+
+.error-render{
+	color: red;
+}

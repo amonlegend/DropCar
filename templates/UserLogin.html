@@ -17,7 +17,7 @@
 
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="{% url 'registration' %}" name="signupForm" method="POST">
+		<form onsubmit="return validateForm();" action="{% url 'registration' %}" name="signupForm" method="POST">
             {% csrf_token %}
 			<h1>Create Account</h1>
 			<input type="text" name="full_name" id="fullname-field" value="{% if full_name %}{{full_name}}{% endif %}" placeholder="Full Name" />
