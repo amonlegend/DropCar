@@ -117,7 +117,6 @@ def ChangePassword(request, token):
         if request.method == 'POST':
             new_password = request.POST.get('new_password')
             confirm_password = request.POST.get('confirm_password')
-            ("Passowrd liyo ki nai")
             if new_password != confirm_password:
                 messages.error(request, 'Passwords do not match.')
                 return render(request, 'change-password.html', {'token': token})

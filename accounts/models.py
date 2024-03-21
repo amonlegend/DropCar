@@ -4,10 +4,6 @@ from django.core.validators import validate_email
 
 #Create your model here
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db import models
-from django.core.validators import validate_email
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, full_name, phone, password=None, **extra_fields):
         if not email:
