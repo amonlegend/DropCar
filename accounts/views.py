@@ -102,7 +102,7 @@ def login_view(request):
             if request.user.is_authenticated:
                 user_is_authenticated = True
                 button_text = "Profile"
-
+              
     return render(request, 'UserLogin.html' , {"user_is_authenticated": user_is_authenticated, "button_text": button_text})
 
 
