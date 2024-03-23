@@ -50,7 +50,8 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}">Sign In</a>
+                    {% comment %} <a href="{% url 'login' %}">Sign In</a> {% endcomment %}
+                    <button class="log-in" onclick="window.location.href='{% url 'login' %}'">Sign In</button>
                 {% endif %}
             </div>
     </header>

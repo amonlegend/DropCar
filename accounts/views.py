@@ -50,7 +50,7 @@ def registration_view(request):
             user.set_password(password1)
             user.save()
             messages.success(request, 'Registration Successful')
-            return redirect('/')
+            return redirect('login')
     return render(request, 'UserLogin.html')
 
 
@@ -82,7 +82,7 @@ def login_view(request):
                 "pwerror": "Invalid Credentials"
             }
             return render(request, 'UserLogin.html', context)
-        elif user is not None and user.is_superuser and user.is_staff:
+        elif user is not None and user.is_superuser:
             login(request, user)
             return redirect("/admin/")
         if user is not None and user.is_customer:

@@ -36,15 +36,15 @@ function validateForm() {
     }
 
     // Validate Phone Number
-    if (phone.trim() === "") {
-        phoneError.innerHTML = "Please enter your phone number";
-        return false;
-    } else if (phone.length < 10 || isNaN(phone) || phone.startsWith("98")) {
-        phoneError.innerHTML = "Please enter a valid phone number";
-        return false;
-    } else {
-        phoneError.innerHTML = "";
-    }
+    // if (phone.trim() === "") {
+    //     phoneError.innerHTML = "Please enter your phone number";
+    //     return false;
+    // } else if (phone.length == 10 || isNaN(phone) || phone.startsWith("98")) {
+    //     phoneError.innerHTML = "Please enter a valid phone number";
+    //     return false;
+    // } else {
+    //     phoneError.innerHTML = "";
+    // }
 
     // Validate Password
     if (password1.trim() === "") {
