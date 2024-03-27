@@ -18,13 +18,13 @@
 }
 /* Custom Scroll Bar */
 html::-webkit-scrollbar{
-    width: 0.5rem;
+    width: 0.2rem;
 }
 html::-webkit-scrollbar-track{
     background: transparent;
 }
 html::-webkit-scrollbar-thumb{
-    background: var(--main-color);
+    background: var(--text-color);
     border-radius: 5rem;
 }
 section{
@@ -101,7 +101,7 @@ header{
     width: 100%;
     min-height: 100vh;
     position: relative;
-    background: url(Jeep.png);
+    background: url('/static/images/backgroundimage.jpeg');
     background-repeat: no-repeat;
     background-position: center right;
     background-size: cover;
@@ -112,20 +112,15 @@ header{
 .text h1{
     font-size: 3.5rem;
     letter-spacing: 2px;
+    color: #fff;
 }
 .text span{
     color:var(--main-color);
 }
 .text p{
     margin: 00.5rem 0 1rem;
-}
-.app-stores{
-    display: flex;
-}
-.app-stores img{
-    width: 100px;
-    margin-right: 1rem;
-    cursor: pointer;
+    color: #fff;
+    font-weight: 2rem;
 }
 .form-container form{
     display: flex;
