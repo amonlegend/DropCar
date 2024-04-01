@@ -45,7 +45,8 @@ header{
 .logo {
     font-weight: bold;
     color: #06A77D;
-    font-size: 30px;
+    font-size: 30px !important;
+    text-decoration: none;
 }
 .navbar {
     display: flex;
@@ -54,10 +55,11 @@ header{
     position: relative;
 }
 .navbar a{
-    font-size: 1rem;
+    font-size: 1rem !important;
     padding: 10px 20px;
     color: var(--text-color);
-    font-weight:500;
+    font-weight:500 !important;
+    text-decoration: none;
 }
 .navbar a::after{
     content: '';
@@ -84,7 +86,7 @@ header{
 .header-btn button{
     outline: none;
     border: none;
-    font-size: 1rem;
+    font-size: 1rem !important;
     padding: 10px 20px;
     color: var(--text-color);
     font-weight: 500;

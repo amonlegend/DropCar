@@ -1,6 +1,8 @@
 {% extends 'components/base.html'%}
     {% load static %}
     {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <body>
         <!--Home-->
         <section class="home" id="home">
@@ -17,14 +19,20 @@
                 </p>
             </div>
             <div class="form-container">
-                <form action="">
+                <form action="" id="rentalForm">
                     <div class="input-box">
                         <span>Pick Up Location</span>
-                        <input type="search" name="" id="" placeholder="Search Places">
+                        <datalist id="pickupLocationList"></datalist> <!--Datalist for autocomplete-->
+                        <input type="search" name="pickupLocation" id="pickupLocation" placeholder="Search Places" list="pickupLocationList">
+                        <input type="hidden" name="locations" id="locations" value="{{ locations }}">
                     </div>
+                    
+                    
                     <div class="input-box">
                         <span>Drop Off Location</span>
-                        <input type="search" name="" id="" placeholder="Search Places">
+                        <input type="search" name="dropOffLocation" id="dropOffLocation" placeholder="Search Places" list="dropOffLocationList">
+                        <datalist id="dropOffLocationList"></datalist> <!--Datalist for autocomplete-->
+                        <input type="hidden" name="locations" id="locations" value="{{ locations }}">
                     </div>
                     <div class="input-box">
                         <span>Pick-Up Date</span>
@@ -32,17 +40,16 @@
                     </div>
                     <div class="input-box">
                         <span>Return Date</span>
-                        <input type="datetime-local" name="pickup-datetime" id="pickup-datetime">
+                        <input type="datetime-local" name="return-datetime" id="return-datetime">
                     </div>
                     <div class="input-box">
-                        <span>Vehicle Type</span>
-                        <select name="vehicleType" id="vehicleType">
-                            <option value="">Select Vehicle Type</option>
-                            <option value="suv">SUV</option>
-                            <option value="muv">MUV</option>
-                            <option value="hatchback">Hatchback</option>
-                            <option value="sedan">Sedan</option>
-                            <option value="jeep">Jeep</option>
+                        <span>Road Type</span>
+                        <select name="roadType" id="roadType">
+                            <option value="">Select Road Type</option>
+                            <option value="highway">HighWay</option>
+                            <option value="offroaa">Off Road</option>
+                            <option value="mountainroad">Mountain Road</option>
+                            <option value="street">Street</option>
                         </select>
                     </div>
                     <input type="submit" name="" id="" class="btn">
@@ -249,10 +256,69 @@
                 </div>
             </div>
         </section>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const pickupLocationInput = document.getElementById('pickupLocation');
+                const dropOffLocationInput = document.getElementById('dropOffLocation');
+                const locationsInput = document.getElementById('locations');
+                const pickupLocationList = document.getElementById('pickupLocationList');
+                const dropOffLocationList = document.getElementById('dropOffLocationList');
+        
+                // Parse the list of locations from the hidden input field
+                const allLocations = JSON.parse(locationsInput.value).map(location => location.fields.location.toLowerCase());
+        
+                // Function to filter and show suggestions
+                const showSuggestions = (inputElement, dataListElement) => {
+                    const inputText = inputElement.value.toLowerCase();
+                    const filteredLocations = allLocations.filter(location => location.startsWith(inputText));
+        
+                    // Clear previous suggestions
+                    dataListElement.innerHTML = '';
+        
+                    // Add filtered locations to the datalist
+                    filteredLocations.forEach(location => {
+                        const option = document.createElement('option');
+                        option.value = location;
+                        dataListElement.appendChild(option);
+                    });
+        
+                    // Show the datalist
+                    dataListElement.hidden = filteredLocations.length === 0;
+                };
+        
+                // Event listener for input typing in pickup location
+                pickupLocationInput.addEventListener('input', () => {
+                    showSuggestions(pickupLocationInput, pickupLocationList);
+                });
+        
+                // Event listener for clearing the pickup location input field
+                pickupLocationInput.addEventListener('input', () => {
+                    if (pickupLocationInput.value === '') {
+                        pickupLocationList.innerHTML = '';
+                        pickupLocationList.hidden = true;
+                    }
+                });
+        
+                // Event listener for input typing in drop-off location
+                dropOffLocationInput.addEventListener('input', () => {
+                    showSuggestions(dropOffLocationInput, dropOffLocationList);
+                });
+        
+                // Event listener for clearing the drop-off location input field
+                dropOffLocationInput.addEventListener('input', () => {
+                    if (dropOffLocationInput.value === '') {
+                        dropOffLocationList.innerHTML = '';
+                        dropOffLocationList.hidden = true;
+                    }
+                });
+            });
+        </script>
+               
         <!--ScrollReveal-->
         <script src="https://unpkg.com/scrollreveal"></script>
         <!-- Link To JS-->
         <script src="static/js/main.js"></script>
-    </body>
+
+    </body> 
 {% endblock content %}
 

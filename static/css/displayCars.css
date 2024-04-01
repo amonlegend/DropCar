@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+/* styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-padding-top: 2rem;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --main-color: #F1A208;
+    --second-color: #06A77D;
+    --text-color: #444;
+    --gradient: linear-gradient(#06A77D, #F1A208);
+}
+
+/* body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+} */
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #eeeff1;
+    padding: 15px 100px;
+}
+
+.logo {
+    font-weight: bold;
+    color: #06A77D;
+    font-size: 30px;
+}
+.navbar{
+  display: flex;
+}
+.navbar li{
+  position: relative;
+}
+.navbar a {
+  font-size: 1rem;
+  padding: 10px 20px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+.navbar a::after{
+  content: '';
+  width: 0;
+  height: 3px;
+  background: var(--gradient);
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  transition: 0.5s;
+}
+.navbar a:hover::after{
+  width:100%;
+}
+#menu-icon{
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10001;
+  display: none;
+}
+.header-btn button {
+    outline: 2px solid transparent;
+}
+
+.header-btn button {
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    padding: 10px 20px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.header-btn .Sign-in {
+    background: #005377;
+    color: #fff;
+    border-radius: 0.5rem;
+}
+
+.header-btn .Sign-in:hover {
+    background-color: #9AC4F8;
+}
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 90px; /* Adjust this value based on your header height */
+}
+.side-bar {
+  flex: 0 0 300px; /* Set a fixed width for the sidebar */
+  margin-right: 20px; /* Add some spacing between the sidebar and the services container */
+  position: sticky;
+  height: calc(100vh - 90px);
+  top: 90px;
+}
+/* Booking Details */
+.booking-details {
+    /* margin-top: 90px; */
+    margin-left: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.booking-details h2 {
+    color: #06A77D;
+    margin-bottom: 20px;
+}
+
+.booking-details p {
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.booking-details .edit-detail {
+    background-color: #06A77D;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* filter css */
+.filters {
+    margin-left: 20px;
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    height: 350px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+.filters h1 {
+    color: #06A77D;
+    margin-bottom: 5px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1;
+    padding: 20px;
+}
+
+.filter-category {
+    margin-bottom: 20px;
+}
+
+.filter-option {
+    background-color: #f8f8f8;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    /* Adjust as needed */
+    cursor: pointer;
+    border: none;
+}
+
+.filter-option img {
+    width: 20px;
+    /* Adjust this value to change the size of the icon */
+    height: 20px;
+    /* Adjust this value to change the size of the icon */
+    margin-right: 5px;
+    /* Adjust this value to add space between the icon and the text */
+}
+.filter-option:hover {
+  background-color: #e8e8e8; /* Change as needed */
+  /* Add more styles as needed */
+}
+
+
+.category-wrap {
+    padding: 0px 20px 20px 20px;
+    z-index: 2;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+
+/* displaying vehicles */
+.services-container {
+  flex: 1; /* This will make the services container take up the remaining space */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-bottom: 100px;
+}
+
+.services-container .box{
+  padding: 10px;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 41px rgba(0, 0, 0, 0.1);
+}
+.services-container .box .box-img{
+  width: 100%;
+  height: 200px;
+}
+.services-container .box .box-img img{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+  object-position: center;
+}
+.services-container .box p{
+  padding: 0 10px;
+  border: 1px solid var(--text-color);
+  width: 58px;
+  border-radius: 0.5rem;
+  margin: 1rem 0 1rem;
+}
+.services-container .box h3{
+  font-weight: 500;
+}
+.services-container .box h2{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--main-color);
+  margin: 0.2rem 0 0.5rem;
+}
+.services-container .box h2 span{
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+.services-container .box .btn{
+  display: flex;
+  justify-content: center;
+  background: #06A77D;
+  color: #fff;
+  padding: 10px;
+  border-radius: 0.5rem;
+}
+.services-container .box .btn:hover{
+  background: var(--main-color);
+}
+   
+  @media (max-width: 768px) {
+    .main-container {
+      flex-direction: column; /* Change the flex direction to column */
+    }
+  
+    .side-bar {
+      flex: 0 0 auto; /* Reset the flex properties */
+      position: relative; /* Remove position: sticky */
+      top: 0; /* Remove top position */
+      width: 100%; /* Make the sidebar full width */
+      margin: 0; /* Remove margin */
+      height: auto; /* Reset height */
+    }
+    
+    .booking-details, .filters{
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .services-container{
+      grid-template-columns: repeat(auto-fit,minmax(254px,auto));
+  }
+  }
+
+/* Footer Styling */
+footer{
+  background: #17183B;
+  padding-top: 50px;
+}
+.container{
+  /* width: 1140px; */
+  margin: auto;
+  display: block; /* Or flex-direction: column */
+}
+.footer-sections {
+  display: flex;
+}
+.footer-content {
+  width: 33.3%;
+}
+.footer-content h3{
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #fff;
+}
+.footer-content p{
+  width: 190px;
+  margin: auto;
+  padding: 7px;
+  color: #fff;
+  font-size: 14px;
+}
+.footer-content ul{
+  text-align: center;
+}
+/* footer links css */
+.list li a {
+  color: white; /* Changed from #D1603D */
+  text-decoration: none; /* Added this */
+}
+
+.list li a:hover{
+  color: #f18930; /* Changed from red */
+}
+
+.list li{
+  width: auto;
+  text-align: center;
+  list-style-type:none;
+  padding: 5px;
+  position: relative;
+}
+
+/* Added this */
+.list li::before{
+      content: '';
+      position: absolute;
+      transform: translate(-50%,-50%);
+      left: 50%;
+      top: 100%;
+      width: 0;
+      height: 2px;
+      background: #f18930;
+      transition-duration: .5s;
+}
+
+/* Added this */
+.list li:hover::before{
+      width: 70px;
+}
+
+.social-icons{
+  text-align: center;
+  padding: 0;
+}
+.social-icons li{
+  display: inline-block;
+  text-align: center;
+  padding: 5px;
+}
+.social-icons i{
+  color: white;
+  font-size: 25px;
+}
+.social-icons i:hover{
+  color: #f18930;
+}
+.bottom-bar{
+  background: #f18930;
+  text-align: center;
+  padding: 5px 0;
+}
+.bottom-bar p{
+  color: #343434;
+  margin: 0;
+  font-size: 16px;
+}

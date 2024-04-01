@@ -7,16 +7,24 @@ from .models import CustomUser
 import uuid
 from .helpers import send_forget_password_mail
 from .models import *
+import requests
+from inventory.models import Location
+from django.http import JsonResponse
+from django.core.serializers import serialize
 
 
 
 # Create your views here.
 def index(request):
-    return render(request,"index.html")
+    locations = Location.objects.all()
+    locations_data = serialize('json', locations, fields=('location',))
+    return render(request,"index.html", {"locations": locations_data})
 
 def loggedin(request):
     return render(request, "loggedin.html")
 
+def my_Profile_view(request):
+    return render(request, "myProfile.html")
 
 # check if string is email
 def is_email(string):

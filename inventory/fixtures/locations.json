@@ -1,0 +1,674 @@
+[
+    {
+        "model": "inventory.location",
+        "pk": 1,
+        "fields": {
+            "location": "Aalok Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 2,
+        "fields": {
+            "location": "Amideva Buddha Park"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 3,
+        "fields": {
+            "location": "Ananda Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 4,
+        "fields": {
+            "location": "Anandanagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 5,
+        "fields": {
+            "location": "Asan Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 6,
+        "fields": {
+            "location": "Baghbazar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 7,
+        "fields": {
+            "location": "Balaju"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 8,
+        "fields": {
+            "location": "Balaju Bypass"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 9,
+        "fields": {
+            "location": "Balkhu"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 10,
+        "fields": {
+            "location": "Balkumari"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 11,
+        "fields": {
+            "location": "Banasthali"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 12,
+        "fields": {
+            "location": "Baneshwar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 13,
+        "fields": {
+            "location": "Bansh Ghari"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 14,
+        "fields": {
+            "location": "Basantapur Durbar Square"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 15,
+        "fields": {
+            "location": "Basuki Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 16,
+        "fields": {
+            "location": "Battisputali"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 17,
+        "fields": {
+            "location": "Baudha"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 18,
+        "fields": {
+            "location": "Bhagwan Bahal"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 19,
+        "fields": {
+            "location": "Bhatbhateni"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 20,
+        "fields": {
+            "location": "Bhedasing"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 21,
+        "fields": {
+            "location": "Bhimsengola"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 22,
+        "fields": {
+            "location": "Bhimsensthan"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 23,
+        "fields": {
+            "location": "Bhotahity"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 24,
+        "fields": {
+            "location": "Bhrikuti Tole"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 25,
+        "fields": {
+            "location": "Bhual Dhanda"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 26,
+        "fields": {
+            "location": "Bijay Chowk"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 27,
+        "fields": {
+            "location": "Binayak Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 28,
+        "fields": {
+            "location": "Bishalnagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 29,
+        "fields": {
+            "location": "Bogati Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 30,
+        "fields": {
+            "location": "Buddha Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 31,
+        "fields": {
+            "location": "Bulbulley"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 32,
+        "fields": {
+            "location": "Chabahil"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 33,
+        "fields": {
+            "location": "Chamati"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 34,
+        "fields": {
+            "location": "Chhauni"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 35,
+        "fields": {
+            "location": "Chhetrapati"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 36,
+        "fields": {
+            "location": "Chuchepati"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 37,
+        "fields": {
+            "location": "Dallu"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 38,
+        "fields": {
+            "location": "Dallu Chautara"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 39,
+        "fields": {
+            "location": "Damai Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 40,
+        "fields": {
+            "location": "Dathu Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 41,
+        "fields": {
+            "location": "Devi Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 42,
+        "fields": {
+            "location": "Dhalku Chok"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 43,
+        "fields": {
+            "location": "Dhara Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 44,
+        "fields": {
+            "location": "Dhobi chaur"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 45,
+        "fields": {
+            "location": "Dhobi Khola"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 46,
+        "fields": {
+            "location": "Dillibazar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 47,
+        "fields": {
+            "location": "Ekata Chok"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 48,
+        "fields": {
+            "location": "Gairidhara"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 49,
+        "fields": {
+            "location": "Galkopakha"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 50,
+        "fields": {
+            "location": "Ganesh Mandir"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 51,
+        "fields": {
+            "location": "Gangahiti"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 52,
+        "fields": {
+            "location": "Ghattekulo"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 53,
+        "fields": {
+            "location": "Gongabu"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 54,
+        "fields": {
+            "location": "Gopi Krishna Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 55,
+        "fields": {
+            "location": "Gurans Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 56,
+        "fields": {
+            "location": "Gyaneshwar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 57,
+        "fields": {
+            "location": "Hadigaun"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 58,
+        "fields": {
+            "location": "Hattisar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 59,
+        "fields": {
+            "location": "Hyumat"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 60,
+        "fields": {
+            "location": "Jadibuti"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 61,
+        "fields": {
+            "location": "Jor Pipal"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 62,
+        "fields": {
+            "location": "Kailash Chok"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 63,
+        "fields": {
+            "location": "Kalanki"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 64,
+        "fields": {
+            "location": "Kalimati"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 65,
+        "fields": {
+            "location": "Kalopul"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 66,
+        "fields": {
+            "location": "Kamalpokhari"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 67,
+        "fields": {
+            "location": "Kel Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 68,
+        "fields": {
+            "location": "Kharel Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 69,
+        "fields": {
+            "location": "Khichapokhari"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 70,
+        "fields": {
+            "location": "Kholagaal"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 71,
+        "fields": {
+            "location": "Khursanitaar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 72,
+        "fields": {
+            "location": "Kimdol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 73,
+        "fields": {
+            "location": "Kot Devi"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 74,
+        "fields": {
+            "location": "Kotal Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 75,
+        "fields": {
+            "location": "Koteshwar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 76,
+        "fields": {
+            "location": "Kshitij Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 77,
+        "fields": {
+            "location": "Kuleshwar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 78,
+        "fields": {
+            "location": "Kumarigal"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 79,
+        "fields": {
+            "location": "Kutu Bahal"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 80,
+        "fields": {
+            "location": "Lainchaur"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 81,
+        "fields": {
+            "location": "Lainchaur Chowk"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 82,
+        "fields": {
+            "location": "Lakhe Chaur"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 83,
+        "fields": {
+            "location": "Lazimpat"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 84,
+        "fields": {
+            "location": "Lut Chok"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 85,
+        "fields": {
+            "location": "Machhapokhari"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 86,
+        "fields": {
+            "location": "Mahadevasthan"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 87,
+        "fields": {
+            "location": "Maharajganj"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 88,
+        "fields": {
+            "location": "Maiju Bahal"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 89,
+        "fields": {
+            "location": "Maitidevi"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 90,
+        "fields": {
+            "location": "Maitighar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 91,
+        "fields": {
+            "location": "Maitri Nagar"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 92,
+        "fields": {
+            "location": "Makkhan Tol"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 93,
+        "fields": {
+            "location": "Mali Gaun"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 94,
+        "fields": {
+            "location": "Minbhawan"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 95,
+        "fields": {
+            "location": "Mitrapark"
+        }
+    },
+    {
+        "model": "inventory.location",
+        "pk": 96,
+        "fields": {
+            "location": "Naghal"
+        }
+    }
+]
