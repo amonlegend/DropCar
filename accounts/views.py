@@ -1,8 +1,11 @@
+import os
 from django.shortcuts import render, HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+from DropCar import settings
 from .models import CustomUser
 import uuid
 from .helpers import send_forget_password_mail
@@ -11,6 +14,9 @@ import requests
 from inventory.models import Location
 from django.http import JsonResponse
 from django.core.serializers import serialize
+from django.contrib.auth.hashers import check_password
+
+
 
 
 
@@ -167,3 +173,82 @@ def ForgetPassword(request):
     
 def ForgetMessage(request):
     return render(request, 'forget-message.html')
+
+
+def update_profile(request):
+    if request.method == 'POST':
+        if 'update_profile' in request.POST:
+            full_name = request.POST.get('full_name')
+            contact = request.POST.get('contact')
+            email = request.POST.get('email')
+            
+            user = request.user 
+            user.full_name = full_name
+            user.phone = contact
+            user.email = email
+            
+            user.save()
+            return redirect('myProfile')  # Redirect to a view named 'my_profile' after updating
+            
+        elif 'delete_profile' in request.POST:
+            user = request.user 
+            # Assuming you want to delete the user from the database
+            user.delete()
+            # Optionally, you can also log out the user after deletion
+            return redirect('login')  
+    return render(request, "myProfile.html")
+
+def update_profile_pic(request):
+    if request.method == 'POST':
+        profile_pic = request.FILES.get('profile_pic')
+        
+        # Check if a file was uploaded
+        if profile_pic:
+            # Define the directory where profile pictures will be stored
+            profile_pic_dir = os.path.join(settings.MEDIA_ROOT, 'profile_pics')
+            
+            # Save the uploaded file to the directory
+            with open(os.path.join(profile_pic_dir, profile_pic.name), 'wb+') as destination:
+                for chunk in profile_pic.chunks():
+                    destination.write(chunk)
+            
+            # Update the user's profile picture field with the file path
+            request.user.profile_pic = os.path.join('profile_pics', profile_pic.name)
+            request.user.save()
+            
+            messages.success(request, 'Profile picture updated successfully!')
+            return redirect('myProfile')
+        else:
+            messages.error(request, 'No file uploaded.')
+    
+    return render(request, 'myProfile.html')
+
+
+
+def update_password(request):
+    error_message = None  # Initialize error_message to None
+    
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password1 = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
+
+        user = request.user
+
+        # Check if the old password matches the password in the database
+        if check_password(old_password, user.password):
+            # Check if the new passwords match
+            if new_password1 == new_password2:
+                # Update the user's password
+                user.set_password(new_password1)
+                user.save()
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('myProfile')
+            else:
+                messages.error(request, 'New passwords do not match.')
+        else:
+            # # Set error_message for invalid old password
+            error_message = 'Invalid old password.'
+
+    # Pass error_message to the template context
+    return render(request, 'myProfile.html',{'error_message':error_message})

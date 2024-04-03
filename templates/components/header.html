@@ -25,7 +25,7 @@
 <body>
     <header>
         <!-- Your styled header and navbar here -->
-        <a href="#" class="logo">DropCar</a>
+        <a href="{% url 'index' %}#home" class="logo">DropCar</a>
             <div class="bx bx-menu" id="menu-icon"></div>
             <ul class="navbar">
                 <li>
@@ -50,10 +50,11 @@
             <div class="header-btn">
                 {% if user.is_authenticated %}
                     <div class="dropdown">
-                        <button class="dropbtn">{{ user.full_name|slice:"1" }}</button>
+                        {% comment %} <button class="dropbtn">{{ user.full_name|slice:"1" }}</button> {% endcomment %}
+                        <button class="dropbtn"><i class="fas fa-user"></i></button>
                         <div class="dropdown-content">
                             <a href="{% url 'logout' %}">Log Out</a>
-                            {% comment %} <a href="{% url 'profile' %}">My Profile</a> {% endcomment %}
+                            <a href="{% url 'myProfile' %}">My Profile</a>
                         </div>
                     </div>
                 {% else %}

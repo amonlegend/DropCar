@@ -40,7 +40,7 @@ header{
     align-items: center;
     justify-content: space-between;
     background: #eeeff1;
-    padding: 15px 100px;
+    padding: 15px 151px !important;
 }
 .logo {
     font-weight: bold;
@@ -50,6 +50,7 @@ header{
 }
 .navbar {
     display: flex;
+    margin-bottom: 0 !important;
 }
 .navbar li {
     position: relative;
@@ -342,7 +343,7 @@ header{
         padding: 50px 40px;
     }
 }
-@media (max-width: 991px) {
+@media (max-width: 881px) {
     .home{
         background-position: left;
     }
@@ -357,9 +358,6 @@ header{
     }
     #menu-icon{
         display: initial;
-    }
-    .sign-up{
-        display: none;
     }
     .text h21 {
         font-size: 2.5rem;
@@ -446,7 +444,6 @@ footer{
     padding-top: 50px;
 }
 .container{
-    width: 1140px;
     margin: auto;
     display: block; /* Or flex-direction: column */
 }
@@ -539,10 +536,12 @@ footer{
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 /* CSS for the dropdown button when user is authenticated */
+.dropdown .dropbtn i {
+    font-size: 24px; /* Adjust the size as per your preference */
+}
+
 .dropdown .dropbtn {
-    background-color: #4CAF50; /* Change the color as per your preference */
-    color: white; /* Change the color as per your preference */
-    font-size: 16px;
+    color: black; /* Change the color as per your preference */
     border: 1px;
     cursor: pointer;
     border-radius: 50%;
@@ -553,7 +552,7 @@ footer{
 }
 
 .dropdown .dropbtn:hover, .dropdown .dropbtn:focus {
-    background-color: #3e8e41; /* Change the color as per your preference */
+    background-color: #f9f9f9; /* Change the color as per your preference */
 }
 
 .dropdown .dropdown-content {

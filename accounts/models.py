@@ -23,6 +23,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, validators=[validate_email])
     full_name = models.CharField(max_length=335)
     phone = models.CharField(max_length=10)
+    profile_pic = models.ImageField(upload_to='profile_pics', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=True)
