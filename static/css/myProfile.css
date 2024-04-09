@@ -18,6 +18,7 @@
     padding-left: 1.5rem !important;
 }
 .file-upload .square {
+    flex: 1 !important;
     height: 250px;
     width: 250px;
     margin: auto;
@@ -53,12 +54,86 @@
     -moz-appearance: none;
     appearance: none;
     border-radius: 5px;
-    -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 .file-upload{
     margin-bottom: 80px;
 }
+
+.square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  align-items: flex-start;
+
+}
+
+/* The popup form - hidden by default */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+label[for="image"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* The popup form content */
+.Upload-container {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+/* Full-width input fields */
+.Upload-container input[type=text], .Upload-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* The submit button */
+.Upload-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom:none;
+    opacity: 0.8;
+}
+
+.close-btn {
+    cursor: pointer;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    border: none;
+    background: transparent;
+    color: #aaa;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+}
+
+
+
+

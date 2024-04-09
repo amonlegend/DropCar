@@ -2,9 +2,6 @@
     {% load static %}
     {% block content %}
 <body>
-
-
-
 <div class="container">
 <div class="row">
 		<div class="col-12">
@@ -47,8 +44,8 @@
 					</form>
 					</div>
 					<!-- Upload profile -->
-					<form class="file-upload" method="POST" action="{% url 'update_profile_pic' %}">
-						{% csrf_token %}
+					<form id="uploadForm" class="file-upload" >
+						
 					<div class="col-md-12 col-lg-4">
 						<div class="bg-secondary-soft px-4 py-5 rounded">
 							<div class="row g-3">
@@ -56,14 +53,16 @@
 								<div class="text-center">
 									<!-- Image upload -->
 									<div class="square position-relative display-2 mb-3">
-										<i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
-									</div>
+										{% if user.profile_pic %}
+											<img src="{{ user.profile_pic.url }}" class="position-absolute top-50 start-50 translate-middle" alt="Profile Picture">
+										{% else %}
+											<i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
+										{% endif %}
+									</div>									
 									<!-- Button -->
 									<input type="file" id="customFile" name="profile_pic" hidden="">
-									<label class="btn btn-success-soft btn-block" for="customFile">Upload</label>
+									<button type="button" class="btn btn-success-soft btn-block" id="edit_profile_pic_button">Edit Profile</button>
 									<button type="button" class="btn btn-danger-soft">Remove</button>
-									<!-- Content -->
-									<p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
 								</div>
 							</div>
 						</div>
@@ -109,12 +108,22 @@
 				</form>
 				</div> <!-- Row END -->
 			{% comment %} </form> <!-- Form END --> {% endcomment %}
-			
-
-			
-			
 		</div>
 	</div>
 </div>
+<div id="popupForm" class="popup">
+    <form class="Upload-container" method="POST" action="{% url 'update_profile_pic' %}" enctype="multipart/form-data" >
+		{% csrf_token %}
+		<span class="close-btn material-symbols-rounded">close</span>
+        <h1>Edit Profile Image</h1>
+        <label for="image"><b>Choose File</b></label>
+        <input type="file" placeholder="No file chosen" name="profile_pic" required>
+
+        <button type="submit" id="update_profile_picture" class="btn">Upload</button>
+    </form>
+</div>
+<script src="static/js/uploadPopup.js"></script>
+
+
 </body>
 {% endblock %}
