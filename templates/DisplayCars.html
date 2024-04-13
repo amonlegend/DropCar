@@ -1,1 +1,122 @@
-this is displayCar page
+{% extends 'components/base.html'%}
+    {% load static %}
+    {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/display_car.css' %}">
+    {% endblock style %}
+    {% block content %}
+
+    <section>
+        <div class="main-container">
+            <div class="side-bar">
+                <section>
+                    <div class="booking-details">
+                        <div class="sub-container">
+                            <h4>Booking Detail</h4>
+                            <p>From: Swoyambhu Bhagwan Pau, Swayambhu Circle Road, Kathmandu, Nepal</p>
+                            <p>To: Lakeside, Pokhara, Nepal</p>
+                            <p>Start Date: 2024-03-24 6:00 PM</p>
+                            <p>End Date: 2024-03-26 4:30 PM</p>
+                            <button class="edit-detail">Edit Detail</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="filters">
+                        <h1>Filters</h1>
+                        <div class="category-wrap">
+                            <form id="filterForm" action="{% url 'display_car' %}" method="GET">
+                                <div class="filter-category">
+                                    <h4>Transmission</h4>
+                                    <div class="filter-option">
+                                        <input type="radio" name="transmission" value="manual" id="manual">
+                                        <label for="manual"><img src="manual.png" alt="Manual Icon"> Manual</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="transmission" value="automatic" id="automatic">
+                                        <label for="automatic"><img src="automatic.png" alt="Automatic Icon"> Automatic</label>
+                                    </div>
+                                </div>
+                                <div class="filter-category">
+                                    <h4>Seats</h4>
+                                    <div class="filter-option">
+                                        <input type="radio" name="seats" value="4/5" id="seats4">
+                                        <label for="seats4">4/5 Seater</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="seats" value="6/10" id="seats6">
+                                        <label for="seats6">6/10 Seater</label>
+                                    </div>
+                                </div>
+                                <div class="filter-category">
+                                    <h4>Car type</h4>
+                                    <div class="filter-option">
+                                        <input type="radio" name="car_type" value="Hatchback" id="hatchback">
+                                        <label for="hatchback">Hatchback</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="car_type" value="Sedan" id="sedan">
+                                        <label for="sedan">Sedan</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="car_type" value="SUV" id="suv">
+                                        <label for="suv">SUV</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="car_type" value="MUV" id="muv">
+                                        <label for="muv">MUV</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="car_type" value="Mini Van" id="minivan">
+                                        <label for="minivan">Mini Van</label>
+                                    </div>                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="services-container">
+                {% for vehicle in vehicles %}
+                <div class="box">
+                    <div class="box-img">
+                        <img src="{{ vehicle.image.url }}" alt="">
+                    </div>
+                    <p>{{ vehicle.model_year }}</p>
+                    <h3>{{ vehicle.name }}</h3>
+                    <h2>
+                        {{ vehicle.price_per_day }} <span>/Day</span>
+                    </h2>
+                    <a href="#" class="btn">Rent Now</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="services-container">
+                {% for vehicle in vehicles %}
+                <div class="box">
+                    <div class="box-img">
+                        <img src="{{ vehicle.image.url }}" alt="">
+                    </div>
+                    <p>{{ vehicle.model_year }}</p>
+                    <h3>{{ vehicle.name }}</h3>
+                    <h2>
+                        {{ vehicle.price_per_day }} <span>/Day</span>
+                    </h2>
+                    <a href="#" class="btn">Rent Now</a>
+                </div>
+                {% endfor %}
+            </div>
+            
+    </section>
+<script>
+        document.querySelectorAll('.filter-option input').forEach(function(input) {
+            input.addEventListener('change', function() {
+                document.getElementById('filterForm').submit();
+            });
+        });
+</script>
+{% endblock %}
+
+
+
+
+

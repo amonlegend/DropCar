@@ -19,17 +19,18 @@
                 </p>
             </div>
             <div class="form-container">
-                <form action="" id="rentalForm">
+                <form method="POST" action="{% url 'search_vehicles' %}" id="rentalForm">
+                    {% csrf_token %}
                     <div class="input-box">
                         <span>Pick Up Location</span>
-                        <datalist id="pickupLocationList"></datalist> <!--Datalist for autocomplete-->
+                        <datalist id="pickupLocationList"></datalist>
                         <input type="search" name="pickupLocation" id="pickupLocation" placeholder="Search Places" list="pickupLocationList">
                         <input type="hidden" name="locations" id="locations" value="{{ locations }}">
                     </div>
                     <div class="input-box">
                         <span>Drop Off Location</span>
+                        <datalist id="dropOffLocationList"></datalist>
                         <input type="search" name="dropOffLocation" id="dropOffLocation" placeholder="Search Places" list="dropOffLocationList">
-                        <datalist id="dropOffLocationList"></datalist> <!--Datalist for autocomplete-->
                         <input type="hidden" name="locations" id="locations" value="{{ locations }}">
                     </div>
                     <div class="input-box">
@@ -44,13 +45,14 @@
                         <span>Road Type</span>
                         <select name="roadType" id="roadType">
                             <option value="">Select Road Type</option>
-                            <option value="highway">HighWay</option>
-                            <option value="offroaa">Off Road</option>
-                            <option value="mountainroad">Mountain Road</option>
-                            <option value="street">Street</option>
+                            <option value="Highway">Highway</option>
+                            <option value="Urban">Urban</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Mountain">Mountain</option>
+                            <option value="Off-road">Off-road</option>
                         </select>
                     </div>
-                    <input type="submit" name="" id="" class="btn">
+                    <input type="submit" class="btn" value="Submit">
                 </form>
             </div>
         </section>

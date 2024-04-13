@@ -24,7 +24,9 @@
     padding: 0;
     font-family: Arial, sans-serif;
 } */
-
+section{
+  padding: 0;
+}
 header {
     position: fixed;
     width: 100%;
@@ -165,6 +167,10 @@ header {
 .filter-category {
     margin-bottom: 20px;
 }
+/* Hide default radio buttons */
+input[type="radio"] {
+  display: none;
+}
 
 .filter-option {
     background-color: #f8f8f8;
@@ -192,7 +198,6 @@ header {
   background-color: #e8e8e8; /* Change as needed */
   /* Add more styles as needed */
 }
-
 
 .category-wrap {
     padding: 0px 20px 20px 20px;
@@ -298,97 +303,3 @@ header {
   }
   }
 
-/* Footer Styling */
-footer{
-  background: #17183B;
-  padding-top: 50px;
-}
-.container{
-  /* width: 1140px; */
-  margin: auto;
-  display: block; /* Or flex-direction: column */
-}
-.footer-sections {
-  display: flex;
-}
-.footer-content {
-  width: 33.3%;
-}
-.footer-content h3{
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  text-align: center;
-  color: #fff;
-}
-.footer-content p{
-  width: 190px;
-  margin: auto;
-  padding: 7px;
-  color: #fff;
-  font-size: 14px;
-}
-.footer-content ul{
-  text-align: center;
-}
-/* footer links css */
-.list li a {
-  color: white; /* Changed from #D1603D */
-  text-decoration: none; /* Added this */
-}
-
-.list li a:hover{
-  color: #f18930; /* Changed from red */
-}
-
-.list li{
-  width: auto;
-  text-align: center;
-  list-style-type:none;
-  padding: 5px;
-  position: relative;
-}
-
-/* Added this */
-.list li::before{
-      content: '';
-      position: absolute;
-      transform: translate(-50%,-50%);
-      left: 50%;
-      top: 100%;
-      width: 0;
-      height: 2px;
-      background: #f18930;
-      transition-duration: .5s;
-}
-
-/* Added this */
-.list li:hover::before{
-      width: 70px;
-}
-
-.social-icons{
-  text-align: center;
-  padding: 0;
-}
-.social-icons li{
-  display: inline-block;
-  text-align: center;
-  padding: 5px;
-}
-.social-icons i{
-  color: white;
-  font-size: 25px;
-}
-.social-icons i:hover{
-  color: #f18930;
-}
-.bottom-bar{
-  background: #f18930;
-  text-align: center;
-  padding: 5px 0;
-}
-.bottom-bar p{
-  color: #343434;
-  margin: 0;
-  font-size: 16px;
-}

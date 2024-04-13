@@ -1,7 +1,9 @@
 {% extends 'components/base.html'%}
     {% load static %}
+    {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/myProfile.css' %}">
+    {% endblock style %}
     {% block content %}
-<body>
 <div class="container">
 <div class="row">
 		<div class="col-12">
@@ -123,7 +125,4 @@
     </form>
 </div>
 <script src="static/js/uploadPopup.js"></script>
-
-
-</body>
 {% endblock %}
