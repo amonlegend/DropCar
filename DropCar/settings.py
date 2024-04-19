@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,3 +145,6 @@ EMAIL_HOST_PASSWORD = 'pdldttqyvpcecywb'
 STATIC_URL= "/static/"
 MEDIA_ROOT= os.path.join(BASE_DIR, "media")
 MEDIA_URL="/media/"
+
+
+DATETIME_FORMAT = 'D, d M Y h:i A'

@@ -22,12 +22,17 @@
                 <li>
                     <a href="{% url 'index' %}#contact">Contact</a>
                 </li>
-            </ul>
+           </ul>
             <div class="header-btn">
                 {% if user.is_authenticated %}
                     <div class="dropdown">
                         {% comment %} <button class="dropbtn">{{ user.full_name|slice:"1" }}</button> {% endcomment %}
+                        {% if user.profile_pic %}
+                        <button class="dropbtn user-profile-pic" style="background-image: url('{{ user.profile_pic.url }}')"></button>
+                    {% else %}
                         <button class="dropbtn"><i class="fas fa-user"></i></button>
+                    {% endif %}
+                    
                         <div class="dropdown-content">
                             <a href="{% url 'myProfile' %}">My Profile</a>
                             <a href="{% url 'logout' %}">Log Out</a>

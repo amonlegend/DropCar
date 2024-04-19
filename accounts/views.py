@@ -25,7 +25,7 @@ from django.core.files.storage import FileSystemStorage
 def index(request):
     locations = Location.objects.all()
     locations_data = serialize('json', locations, fields=('location',))
-    return render(request,"index.html", {"locations": locations_data})
+    return render(request,"index.html", {"locations": locations_data,'user': request.user})
 
 def loggedin(request):
     return render(request, "loggedin.html")

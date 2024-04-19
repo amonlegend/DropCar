@@ -580,3 +580,13 @@ footer{
     display: block;
 }
 
+
+
+/* Style for the button with user profile picture */
+.dropbtn.user-profile-pic {
+    width: 40px; /* Adjust the width of the button */
+    height: 40px; /* Adjust the height of the button */
+    border-radius: 50%; /* Make the button round */
+    background-size: cover; /* Cover the entire button with the background image */
+    background-position: center; /* Center the background image */
+}

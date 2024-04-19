@@ -1,0 +1,21 @@
+.image-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.car-image {
+    position: relative;
+}
+
+.car-image img {
+    display: block;
+    max-width: 100%;
+}
