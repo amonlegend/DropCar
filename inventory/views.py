@@ -95,4 +95,3 @@ def recommended_cars(request):
 def Rent_Car(request):
     return render(request, "RentCar.html")
 
-
