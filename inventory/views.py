@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Location, Vehicle
 
 from datetime import datetime
@@ -91,7 +91,10 @@ def recommended_cars(request):
 
 
 
+def View_car(request, vehicle_id):
+    # Retrieve the vehicle object using the vehicle_id
+    vehicle = get_object_or_404(Vehicle, pk=vehicle_id)
+    # Pass the vehicle object to the template
+    return render(request, "RentCar.html", {'vehicle': vehicle})
 
-def Rent_Car(request):
-    return render(request, "RentCar.html")
 

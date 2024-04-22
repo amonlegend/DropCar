@@ -19,28 +19,70 @@
     display: block;
     max-width: 100%;
 } */
+.section-content{
+  max-width: 1454px;
+  position: relative;
+}
+.details-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 .vehicle-container {
     margin-top: 56px; /* Adjust margin as needed */
     display: flex; /* Use flexbox for alignment */
-    align-items: flex-start; /* Center align items vertically */
+    align-items: center; /* Center align items vertically */
     border: 2px solid #ccc; /* Add border for box effect */
     padding: 10px; /* Add padding for spacing */
-    border-radius: 25px;
+    border-radius: 9px;
+    gap: 100px;
+    flex-wrap: wrap;
+    margin-right:20px;
 }
 
-.car-image {
-    flex: 0.4; /* Set car-image to take up 40% of the container's width */
-}
-
-.car-info {
-    flex: 0.6; /* Set car-info to take up 60% of the container's width */
-}
 
 .car-image img {
-    width: 76%; /* Make image fill its container */
+    max-width: 385px; /* Make image fill its container */
+    width: 100%; /* Make image fill its container */
     height: auto; /* Maintain aspect ratio of the image */
     object-fit: cover; /* Maintain aspect ratio and cover container */
     border-radius: 10px; /* Add border radius to the image */
+}
+  /* booking button */
+  .booking-card {
+    flex: 1;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    margin-top: 56px;
+}
+
+.estimated-amount p,
+.checkbox-container label {
+   /* font-size: small; */
+   color: grey;
+}
+
+h2 {
+   margin-top: -10px;
+}
+
+textarea {
+   width: calc(100% - 20px);
+   height: 50px;
+   margin-bottom: 20px;
+}
+
+.checkbox-container {
+   margin-bottom: 20px; 
+}
+
+.book-btn {
+   background-color: blue; 
+   color:white; 
+   border:none; 
+   padding:10px; 
 }
 /* booking info */
   
@@ -77,3 +119,4 @@
     background-color: #f2f2f2;
     padding: 5px 10px;
   }
+

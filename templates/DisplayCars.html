@@ -82,7 +82,7 @@
                 <p>{{ vehicle.model_year }}</p>
                 <h3>{{ vehicle.name }}</h3>
                 <h2>{{ vehicle.price_per_day }}</span>/Day</h2>
-                <a href="#" class="btn">Rent Now</a>
+                <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>
             </div>
             {% endfor %}
             {% endif %}

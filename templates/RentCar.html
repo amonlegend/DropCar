@@ -1,55 +1,81 @@
-{% extends 'components/base.html' %}
-    {% load static %}
-    {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/RentCar.css' %}">
-    {% endblock style %}
-    {% block content %}
-<section>
-    {% comment %} <div class="vehicle-detail">
-        <button class="back-button">Back</button>
-        <div class="car-image">
-            <img src="static/images/car3.jpg" class="img-fluid" alt="Car Image">
-        </div>
-        <div class="details-booking">
-            <h4>Booking Detail</h4>
-        </div>
-        .
-            <p>From: Swoyambhu Bhagwan Pau, Swayambhu Circle Road, Kathmandu, Nepal</p>
-            <p>To: Lakeside, Pokhara, Nepal</p>
-            <p>Start Date: 2024-03-24 6:00 PM</p>
-            <p>End Date: 2024-03-26 4:30 PM</p>
-        </div>
-    </div>   {% endcomment %}
+{% extends 'components/base.html' %} {% load static %} {% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/RentCar.css' %}" />
+{% endblock style %} {% block content %}
+<section class="section-content">
+  <div class="details-container">
     <div class="vehicle-container">
-        <div class="car-image">
-            <img src="static/images/car3.jpg" alt="Car Image">
-        </div>
-        <div class="car-info">
-            <h2>Car Details</h2>
-            <p><strong>Make:</strong> Toyota</p>
-            <p><strong>Model:</strong> Camry</p>
-            <p><strong>Year:</strong> 2022</p>
-            <p><strong>Color:</strong> Silver</p>
-            <p><strong>Features:</strong> GPS, Leather Seats, Sunroof</p>
-            <h3>Terms and Conditions</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ex nec mi tempus pharetra.</p>
-            <p>...</p>
-        </div>
+      <div class="car-image">
+        <img src="{{ vehicle.image.url }}" alt="Car Image" />
+      </div>
+      <div class="car-info">
+        <h2>Car Details</h2>
+        <p><strong>Vehicle name:</strong> {{ vehicle.name }}</p>
+        <p><strong>Category:</strong> {{ vehicle.Vehicle_Type }}</p>
+        <p><strong>Year:</strong> {{ vehicle.model_year }}</p>
+        <p><strong>Price:</strong> {{ vehicle.price_per_day }}</p>
+        <p><strong>Features:</strong> GPS, Leather Seats, Sunroof</p>
+        {% comment %} <h3>Description</h3>
+        <p>{{ vehicle.description }}</p> {% endcomment %}
+      </div>
     </div>
+    <div class="booking-card">
+      <div class="estimated-amount">
+        <p>Total Amount</p>
+        <h2 id="total-amount">Rs. 0</h2>
+      </div>
+      <div class="checkbox-container">
+        <input type="checkbox" id="terms" name="terms" />
+        <label for="terms">Accept Terms and Conditions</label>
+      </div>
+      <button class="book-btn" type="button">Book Now</button>
+    </div>
+  </div>
 </section>
 <section class="container">
-    <div class="location-details">
-      <div class="from">
-        <h3>From</h3>
-        <p>Mon, 22 Apr, 08:00 AM</p>
-        <p>1, Kodihalli Main Rd, HAL 3rd Stage, New Tippasandra, Bengaluru, Karnataka 560008, India</p>
-      </div>
-      <div class="to">
-        <h3>To</h3>
-        <p>Thu, 25 Apr, 12:00 PM</p>
-        <p>1, Kodihalli Main Rd, HAL 3rd Stage, New Tippasandra, Bengaluru, Karnataka 560008, India</p>
-      </div>
+  <div class="location-details">
+    <div class="from">
+      <h3>From</h3>
+      <p>{{ request.session.pickup_datetime }}</p>
+      <p>
+        {{ request.session.pickup_location }}
+      </p>
     </div>
-  </section>
+    <div class="to">
+      <h3>To</h3>
+      <p>{{ request.session.return_datetime }}</p>
+      <p>
+        {{ request.session.dropoff_location }}
+      </p>
+    </div>
+  </div>
+  <div class="about-car">
+    <h3>About Car</h3>
+      <p>{{ vehicle.description }}</p>
+  </div>
+</section>
 
-    {% endblock content %}
+<script>
+  // Get the pickup and return date strings from the session
+  var pickupDateString = "{{ request.session.pickup_datetime }}";
+  var returnDateString = "{{ request.session.return_datetime }}";
+
+  // Parse the date strings to Date objects
+  var pickupDate = new Date(pickupDateString);
+  var returnDate = new Date(returnDateString);
+
+  // Calculate the duration in milliseconds
+  var durationMillis = returnDate - pickupDate;
+
+  // Convert the duration to days
+  var durationDays = durationMillis / (1000 * 60 * 60 * 24);
+
+  // Retrieve the price per day of the vehicle (assuming it's available in the template context)
+  var pricePerDay = {{ vehicle.price_per_day }};
+
+  // Calculate the total amount
+  var totalAmount = Math.floor(durationDays) * pricePerDay;
+
+  // Display the total amount in the HTML element
+  document.getElementById("total-amount").textContent = "Rs. " + totalAmount;
+</script>
+{% endblock content %}
