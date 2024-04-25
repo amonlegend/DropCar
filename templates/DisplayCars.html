@@ -15,10 +15,6 @@
                 <p>End Date: {{ request.session.return_datetime }}</p>               
                 <button class="edit-detail" onclick="openEditModal()">Edit Detail</button>
             </div>
-            
-            
-            
-            
             <div class="filters">
                 <h1>Filters</h1>
                 <div class="category-wrap">
@@ -72,6 +68,21 @@
                 </div>
             </div>
         </div>
+        {% comment %} <div class="vehicle-container">
+            {% if recommended_cars %}
+            {% for vehicle in recommended_cars %}
+            <div class="box">
+                <div class="box-img">
+                    <img src="{{ vehicle.image.url }}" alt="Vehicle">
+                </div>
+                <p>{{ vehicle.model_year }}</p>
+                <h3>{{ vehicle.name }}</h3>
+                <h2>{{ vehicle.price_per_day }}</span>/Day</h2>
+                <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>  {% endcomment %}
         <div class="vehicle-container">
             {% if vehicles %}
             {% for vehicle in vehicles %}
@@ -85,8 +96,11 @@
                 <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>
             </div>
             {% endfor %}
+            {% else %}
+            <p>No vehicles available</p>
             {% endif %}
         </div>
+        
     </div>
 </section>
 

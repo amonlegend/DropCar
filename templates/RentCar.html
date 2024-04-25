@@ -27,21 +27,27 @@
         <input type="checkbox" id="terms" name="terms" />
         <label for="terms">Accept Terms and Conditions</label>
       </div>
-      <button class="book-btn" type="button">Book Now</button>
+      <form action="{% url 'initiate' %}" method="POST">
+        {%csrf_token%}
+        <input type="hidden" name="purchase_order_id" value="{{uuid_value}}"  id="pid">
+        <input type="hidden" name="amount" value= {{ vehicle.price_per_day }} id="amt">
+        <input type="submit" class="book-btn"  value="Book Now" name="" id="">
+        <input type="hidden" name="return_url" value="http://127.0.0.1:8000/verify">
+    </form>
     </div>
   </div>
 </section>
 <section class="container">
   <div class="location-details">
     <div class="from">
-      <h3>From</h3>
+      <h3>Pick-Up Location</h3>
       <p>{{ request.session.pickup_datetime }}</p>
       <p>
         {{ request.session.pickup_location }}
       </p>
     </div>
     <div class="to">
-      <h3>To</h3>
+      <h3>Drop-Off Location</h3>
       <p>{{ request.session.return_datetime }}</p>
       <p>
         {{ request.session.dropoff_location }}

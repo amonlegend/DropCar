@@ -34,9 +34,7 @@ class Vehicle(models.Model):
     Vehicle_Type = models.CharField(max_length=100, choices=Vahicle_type_choices, default="hatchback")
     ROAD_TYPE_CHOICES = {
         'Highway' : 'Highway',
-        'Urban' : 'Urban',
         'Rural' : 'Rural',
-        'Mountain' : 'Mountain',
         'Street' : 'Street',
         'Off-road' : 'Off-road'
 
