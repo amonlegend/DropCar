@@ -2,8 +2,6 @@
     {% load static %}
     {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
         <!--Home-->
         <section class="home" id="home">
             <div class="text">
@@ -22,15 +20,14 @@
                 <form method="POST" action="{% url 'search_vehicles' %}" id="rentalForm">
                     {% csrf_token %}
                     <div class="input-box">
-                        <span>Pick Up Location</span>
-                        <datalist id="pickupLocationList"></datalist>
-                        <input type="search" name="pickupLocation" id="pickupLocation" value="Swoyambhu-15, Kathmandu" placeholder="Swoyambhu-15, Kathmandu" readonly>
-                    </div>
-                    <div class="input-box">
-                        <span>Drop Off Location</span>
-                        <datalist id="dropOffLocationList"></datalist>
-                        <input type="search" name="dropOffLocation" id="dropOffLocation" placeholder="Search Places" list="dropOffLocationList" required>
-                        <input type="hidden" name="locations" id="locations" value="{{ locations }}">
+                        <span>Select Branch Office</span>
+                        <select name="pickupLocation" id="pickupLocation" required>
+                            <option value="">Select Places</option>
+                            <option value="Swoyambhu-15, Kathmandu">Swoyambhu-15, Kathmandu</option>
+                            <option value="Boudha-06, Kathmandu">Boudha-06, Kathmandu</option>
+                            <option value="Kalanki-14, Kathmandu">Kalanki-14, Kathmandu</option>
+                            <option value="Maharajgunj-03, Kathmandu">Maharajgunj-03, Kathmandu</option>
+                        </select>
                     </div>
                     <div class="input-box">
                         <span>Pick-Up Date</span>
@@ -63,7 +60,7 @@
                 <div class="box">
                     <i class='bx bxs-map'></i>
                     <h2>Choose a Location</h2>
-                    <p>Select the pickup and dropoff locations that best suit your itinerary.</p>
+                    <p>Select the Branch Office to pick and drop the vehicle</p>
                 </div>
                 <div class="box">
                     <i class='bx bxs-calendar-check'></i>

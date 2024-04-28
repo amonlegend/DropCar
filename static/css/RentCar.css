@@ -20,37 +20,41 @@
     max-width: 100%;
 } */
 .section-content{
-  max-width: 1454px;
+  padding-right: 135px;
+  max-width: 100%;
   position: relative;
+  padding-left: 135px;
 }
 .details-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin:auto;
 }
 .vehicle-container {
     margin-top: 56px; /* Adjust margin as needed */
     display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center align items vertically */
-    border: 2px solid #ccc; /* Add border for box effect */
     padding: 10px; /* Add padding for spacing */
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     border-radius: 9px;
     gap: 100px;
     flex-wrap: wrap;
     margin-right:20px;
+    flex: 1;
 }
 
 
 .car-image img {
     max-width: 385px; /* Make image fill its container */
     width: 100%; /* Make image fill its container */
-    height: auto; /* Maintain aspect ratio of the image */
-    object-fit: cover; /* Maintain aspect ratio and cover container */
+    height: 256px; /* Maintain aspect ratio of the image */
+    object-fit: contain; /* Maintain aspect ratio and cover container */
     border-radius: 10px; /* Add border radius to the image */
 }
   /* booking button */
   .booking-card {
-    flex: 1;
+    /* flex: 1; */
     width: 300px;
     padding: 20px;
     border-radius: 10px;
@@ -79,9 +83,10 @@ textarea {
 }
 
 .book-btn {
-   background-color: blue; 
+   background-color: #5E338D; 
    color:white; 
    border:none; 
+   border-radius: 13px;
    padding:10px; 
 }
 /* booking info */
@@ -89,7 +94,11 @@ textarea {
   .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+    padding-right: 135px;
+    max-width: 100%;
+    position: relative;
+    padding-left: 135px;
   }
   
   .location-details {
@@ -119,4 +128,59 @@ textarea {
     background-color: #f2f2f2;
     padding: 5px 10px;
   }
+/* about car */
+.about-car {
+  /* display: flex;  */
+  flex-direction: column;
+  justify-content: center;
+  /* height: 300px; Adjust the height as needed */
+  margin-top: 5px;
+  padding: 5px;
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  background-color: #fff;
+  width: 100%;
+}
+
+.about-car h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.about-car p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.cancellation {
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  background-color: #fff;
+}
+
+.cancellation h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cancellation p {
+  font-size: 16px;
+  color: #666;
+}
+
+.cancellation a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.cancellation a:hover {
+  text-decoration: underline;
+}
+
+
 

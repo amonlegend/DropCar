@@ -1,15 +1,21 @@
-let menu = document.querySelector("#menu-icon");
-let navbar = document.querySelector(".navbar");
+document.addEventListener("DOMContentLoaded", function() {
 
-menu.onclick = () => {
-  menu.classList.toggle("bx-x");
-  navbar.classList.toggle("active");
-};
+  let menu = document.querySelector("#menu-icon");
+  let navbar = document.querySelector(".navbar");
+  
+  menu.onclick = () => {
+    console.log("Click");
+    menu.classList.toggle("bx-x");
+    navbar.classList.toggle("active");
+  };
+  
+  window.onscroll = () => {
+    menu.classList.remove("bx-x");
+    navbar.classList.remove("active");
+  };
 
-window.onscroll = () => {
-  menu.classList.remove("bx-x");
-  navbar.classList.remove("active");
-};
+});
+
 
 const sr = ScrollReveal({
   distance: "60px",

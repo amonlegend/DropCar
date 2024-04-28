@@ -9,8 +9,7 @@
         <div class="side-bar">
             <div class="booking-details">
                 <h4>Booking Detail</h4>
-                <p>From: {{ request.session.pickup_location }}</p>
-                <p>To: {{ request.session.dropoff_location }}</p>
+                <p>Selected Branch: {{ request.session.pickup_location }}</p>
                 <p>Start Date: {{ request.session.pickup_datetime }}</p>
                 <p>End Date: {{ request.session.return_datetime }}</p>               
                 <button class="edit-detail" onclick="openEditModal()">Edit Detail</button>
@@ -68,21 +67,6 @@
                 </div>
             </div>
         </div>
-        {% comment %} <div class="vehicle-container">
-            {% if recommended_cars %}
-            {% for vehicle in recommended_cars %}
-            <div class="box">
-                <div class="box-img">
-                    <img src="{{ vehicle.image.url }}" alt="Vehicle">
-                </div>
-                <p>{{ vehicle.model_year }}</p>
-                <h3>{{ vehicle.name }}</h3>
-                <h2>{{ vehicle.price_per_day }}</span>/Day</h2>
-                <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>
-            </div>
-            {% endfor %}
-            {% endif %}
-        </div>  {% endcomment %}
         <div class="vehicle-container">
             {% if vehicles %}
             {% for vehicle in vehicles %}
@@ -154,28 +138,32 @@ function closeEditModal() {
     });
 
 
-    // Get the current date and time
-    var today = new Date();
-    
-    // Format the date as required for datetime-local input
-    var formattedDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+// Get the current date and time
+var today = new Date();
 
-    // Convert the hours to 12-hour format
-    var hours = today.getHours();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // Handle midnight (12 AM)
-    var formattedHours = ('0' + hours).slice(-2);
+// Format the date as required
+var formattedDate = today.getFullYear() + '/' + ('0' + (today.getMonth() + 1)).slice(-2) + '/' + ('0' + today.getDate()).slice(-2);
 
-    // Format the time as required for datetime-local input
-    var formattedTime = formattedHours + ':' + ('0' + today.getMinutes()).slice(-2);
+// Convert the hours to 12-hour format
+var hours = today.getHours();
+var ampm = hours >= 12 ? 'PM' : 'AM';
+hours = hours % 12;
+hours = hours ? hours : 12; // Handle midnight (12 AM)
+var formattedHours = ('0' + hours).slice(-2);
 
-    // Combine date and time
-    var currentDateTime = formattedDate + 'T' + formattedTime;
+// Format the time as required
+var formattedTime = formattedHours + ':' + ('0' + today.getMinutes()).slice(-2) + ' ' + ampm;
 
-    // Set the minimum value for pickupDatetime and returnDatetime inputs
-    document.getElementById('pickupDatetime').min = currentDateTime;
-    document.getElementById('returnDatetime').min = currentDateTime;
+// Combine date and time
+var currentDateTime = formattedDate + ' ' + formattedTime;
+
+// Set the minimum value for pickupDatetime and returnDatetime inputs
+document.getElementById('pickupDatetime').min = currentDateTime;
+document.getElementById('returnDatetime').min = currentDateTime;
+
+// Log the formatted date and time
+console.log('Formatted Datetime:', currentDateTime);
+
 </script>
 <script src="static/js/locations.js"></script>
 

@@ -54,26 +54,6 @@ def edit_booking_detail(request):
         # Render the edit form page
         return render(request, 'DisplayCars.html')
 
-# def display_car(request):
-#     # Retrieve all vehicles from the database
-#     vehicles = Vehicle.objects.all()
-    
-#         # Extract filter parameters from GET request
-#     transmission = request.GET.get('transmission')
-#     seats = request.GET.get('seats')
-#     car_type = request.GET.get('car_type')
-
-#     # Filter queryset based on parameters
-#     if transmission:
-#         vehicles = vehicles.filter(Transmission=transmission)
-#     if seats:
-#         vehicles = vehicles.filter(Seats=seats)
-#     if car_type:
-#         vehicles = vehicles.filter(Vehicle_Type=car_type)
-
-#     # Pass the vehicles to the template
-#     context = {'vehicles': vehicles}
-#     return render(request, 'DisplayCars.html', context)
 def display_car(request):
     # Retrieve road type from session
     road_type = request.session.get('road_type')

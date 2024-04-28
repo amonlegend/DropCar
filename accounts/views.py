@@ -257,7 +257,7 @@ def update_password(request):
                 user.set_password(new_password1)
                 user.save()
                 messages.success(request, 'Your password was successfully updated!')
-                return redirect('myProfile')
+                return redirect('login')
             else:
                 messages.error(request, 'New passwords do not match.')
         else:

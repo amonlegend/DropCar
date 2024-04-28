@@ -40,7 +40,7 @@ header{
     align-items: center;
     justify-content: space-between;
     background: #eeeff1;
-    padding: 15px 137px !important;
+    padding: 5px 137px !important;
 }
 .logo {
     font-weight: bold;
@@ -133,10 +133,12 @@ header{
     position: absolute;
     bottom: 4rem;
     left: 100px;
+    right: 100px;
     background: #fff;
     padding: 20px;
     border-radius: 0.5rem;
 }
+
 .input-box{
     flex: 1 1 7rem;
     display: flex;
@@ -172,6 +174,7 @@ header{
     color: #fff;
     font-size: 1rem;
     font-weight: 500;
+    max-width: 200px;
 }
 .form-container form .btn:hover{
     background: var(--main-color);
@@ -370,7 +373,7 @@ header{
     }
     header .navbar{
         position: absolute;
-        top: -500px;
+        top: -550px;
         left: 0;
         right: 0;
         display: flex;
@@ -380,7 +383,7 @@ header{
         transition: 0.2s ease;
         text-align: left;
     }
-    .navbar .active{
+    ul.active{
         top: 100%;
     }
     .navbar a{
@@ -413,12 +416,12 @@ header{
         order: 2
     }
 }
-@media (max-width: 350px){
+@media (max-width: 376px){
     header{
         padding: 4px 14px;
     }
-    .logo img{
-        width: 30px;
+    .logo{
+        margin:auto;
     }
     section{
         padding: 50px 14px;
@@ -438,6 +441,7 @@ header{
         grid-template-columns: repeat(auto-fit,minmax(254px,auto));
     }
 }
+
 /* Footer Styling */
 footer{
     background: #17183B;
