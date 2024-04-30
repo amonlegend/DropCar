@@ -41,6 +41,11 @@ class Vehicle(models.Model):
     }
     Road_Type = models.CharField(max_length=100, choices=ROAD_TYPE_CHOICES, default="Highway")
     model_year = models.IntegerField()
+    Status_choices = [
+        ('Available','Available'),
+        ('Booked','Booked'),
+    ]
+    status = models.CharField(max_length=100,choices=Status_choices,default="Available")
     
     def __str__(self):
         return self.name

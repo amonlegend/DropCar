@@ -74,7 +74,10 @@
                 <div class="box-img">
                     <img src="{{ vehicle.image.url }}" alt="Vehicle">
                 </div>
+                <div class="status_div">
                 <p>{{ vehicle.model_year }}</p>
+                <p class="status">{{ vehicle.status }}</p>
+                </div>
                 <h3>{{ vehicle.name }}</h3>
                 <h2>{{ vehicle.price_per_day }}</span>/Day</h2>
                 <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>

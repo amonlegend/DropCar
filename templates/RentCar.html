@@ -26,12 +26,12 @@
         <label for="terms">Accept 
         <a href="templates/terms.html">Terms and Conditions</a></label>
       </div>
-      <form action="{% url 'initiate' %}" method="POST">
-        {%csrf_token%}
-        <input type="hidden" name="purchase_order_id" value="{{uuid_value}}"  id="pid">
-        <input type="hidden" name="amount" value= {{ vehicle.price_per_day }} id="amt">
+      <form action="{% url 'initkhalti' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="purchase_order_id" value="{{ uuid_value }}"  id="pid">
+        <input type="hidden" name="amount" value="10000" id="amt">
         <input type="submit" class="book-btn"  value="Pay with Khalti" name="" id="">
-        <input type="hidden" name="return_url" value="http://127.0.0.1:8000/verify">
+        <input type="hidden" name="return_url" value="http://127.0.0.1:8000/return_url/{{ vehicle.id }}">
     </form>
     </div>
   </div>
@@ -60,8 +60,34 @@
       </div>
         <div class="cancellation">
           <h3>Cancellation Policy</h3>
-          <p>Know more about <a href="#">Cancellation policies.</a></p>
+          <p>Know more about <a href="#" id="openPopup">Cancellation policies.</a></p>
         </div>
+        <!-- The pop-up content -->
+      <div class="popup-overlay" id="popupOverlay"></div>
+      <div class="popup" id="popup">
+        <span class="close-btn material-symbols-rounded" id="closePopup">close</span>
+        <h2>Cancellation Policy</h2>
+        <ol>
+          <li>Free Cancellation Period:
+            <ul>
+              <li>Reservations canceled within 24 hours of booking are eligible for a full refund.</li>
+              <li>For bookings made at least 48 hours in advance, cancellations made up to 48 hours before the scheduled pickup time are eligible for a full refund.</li>
+            </ul>
+          </li>
+          <li>Cancellation Fees:
+            <ul>
+              <li>Cancellations made less than 48 hours before the scheduled pickup time may incur a cancellation fee equivalent to one day's rental charge.</li>
+              <li>No-shows will be charged the full amount of the reservation.</li>
+            </ul>
+          </li>
+          <li>Modifications:
+            <ul>
+              <li>Changes to your reservation, such as extending or shortening the rental period, may be subject to availability and could result in a rate change.</li>
+            </ul>
+          </li>
+          <!-- Include other points as needed -->
+        </ol>
+      </div>
   </div> 
 </section>
 
@@ -88,5 +114,19 @@
 
   // Display the total amount in the HTML element
   document.getElementById("total-amount").textContent = "Rs. " + totalAmount;
+
+  {% comment %} this js is for the pop-up form {% endcomment %}
+  // Function to open the pop-up
+document.getElementById('openPopup').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'block';
+  document.getElementById('popupOverlay').style.display = 'block';
+});
+
+// Function to close the pop-up
+document.getElementById('closePopup').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'none';
+  document.getElementById('popupOverlay').style.display = 'none';
+});
+
 </script>
 {% endblock content %}

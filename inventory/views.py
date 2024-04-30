@@ -6,6 +6,7 @@ from datetime import datetime
 import json
 import uuid
 import requests
+from django.contrib import messages
 def search_vehicles(request):
     if request.method == "POST":
         # Retrieve form data
@@ -93,77 +94,75 @@ def View_car(request, vehicle_id):
     # Pass the vehicle object to the template
     return render(request, "RentCar.html", {'vehicle': vehicle, 'uuid_value':uuid_value})
 
-def return_url(request):
-    return render(request,'payment_success.html')
+# def return_url(request):
+#     return render(request,'payment_success.html')
 
 def initkhalti(request):
-    user = request.user
     url = "https://a.khalti.com/api/v2/epayment/initiate/"
+    user = request.user
+
+
     return_url = request.POST.get('return_url')
-    amount = request.POST.get('amount')
     purchase_order_id = request.POST.get('purchase_order_id')
+    amount = request.POST.get('amount')
+
+    print(purchase_order_id)
+    print(amount)
+    print(return_url)
 
 
-    print("return_url",return_url)
-    print("amount",amount)
-    print("purchase_order_id",purchase_order_id)
     payload = json.dumps({
         "return_url": return_url,
-        "website_url": "http://127.0.0.1:8080/",
+        "website_url": "http://127.0.0.1:8000/",
         "amount": amount,
         "purchase_order_id": purchase_order_id,
-        "purchase_order_name": "test",
+        "purchase_order_name": "Drop Car",
         "customer_info": {
         "name": user.full_name,
         "email": user.email,
-        "phone": user.phone,
+        "phone": user.phone
         }
     })
-
-    # put your own live secet for admin
     headers = {
         'Authorization': 'key a9eeea1fb39645d28254dce00beab257',
         'Content-Type': 'application/json',
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    print(json.loads(response.text))
-
     print(response.text)
-    new_res = json.loads(response.text)
-    # print(new_res['payment_url'])
-    print(type(new_res))
-    return redirect(new_res['payment_url'])
-    return redirect("/")
 
-def verifyKhalti(request):
-    # url = "https://a.khalti.com/api/v2/epayment/lookup/"
-    # if request.method == 'GET':
-    #     headers = {
-    #         'Authorization': 'key b885cd9d8dc04eebb59e6f12190ae017',
-    #         'Content-Type': 'application/json',
-    #     }
-    #     pidx = request.GET.get('pidx')
-    #     data = json.dumps({
-    #         'pidx':pidx
-    #     })
-    #     res = requests.request('POST',url,headers=headers,data=data)
-    #     print(res)
-    #     print(res.text)
+    new_response = json.loads(response.text)
+    print(new_response)
 
-    #     new_res = json.loads(res.text)
-    #     print(new_res)
-        
+    return redirect(new_response['payment_url'])
 
-    #     if new_res['status'] == 'Completed':
-    #         # user = request.user
-    #         # user.has_verified_dairy = True
-    #         # user.save()
-    #         # perform your db interaction logic
-    #         pass
-        
-    #     # else:
-    #     #     # give user a proper error message
-    #     #     raise BadRequest("sorry ")
 
-        return redirect(return_url)
+def return_url(request,vehicle_id):
+    if request.method == 'GET':
+        url = "https://a.khalti.com/api/v2/epayment/lookup/"
+        headers = {
+            'Authorization': 'key a9eeea1fb39645d28254dce00beab257',
+            'Content-Type': 'application/json',
+        }
+        pidx = request.GET.get('pidx')
+        data = json.dumps({
+            'vehicle_id': vehicle_id,
+            'pidx': pidx
+        })
+        print("Data", data)
+        # Make a POST request to the Khalti API to verify payment
+        res = requests.post(url, headers=headers, data=data)
+        print(res.text)
+
+        new_res = json.loads(res.text)
+        print("new_res hai: ", new_res)
+
+        # # Check if payment status is 'Completed'
+        if new_res.get('status') == 'Completed':
+            vehicle = Vehicle.objects.get(id=vehicle_id)
+            vehicle.status = 'booked'
+            vehicle.save()
+            messages.success(request, 'Payment Successful!')
+
+    # Pass vehicle_id to the template
+    return render(request, 'index.html')

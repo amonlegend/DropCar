@@ -168,10 +168,9 @@ input[type="radio"] {
   object-fit: cover;
   object-position: center;
 }
-.vehicle-container .box p {
+.vehicle-container .box p{
   padding: 0 10px;
   border: 1px solid var(--text-color);
-  width: 58px;
   border-radius: 0.5rem;
   margin: 1rem 0 1rem;
 }
@@ -200,7 +199,6 @@ input[type="radio"] {
 .vehicle-container .box .btn:hover {
   background: var(--main-color);
 }
-
 @media (max-width: 768px) {
   .main-container {
     flex-direction: column; /* Change the flex direction to column */
@@ -260,3 +258,12 @@ input[type="radio"] {
   text-decoration: none;
   cursor: pointer;
 }
+
+
+.status_div{
+  display: flex; /* Align model year and status horizontally */
+  justify-content: space-between; /* Distribute space evenly */
+  align-items: center; /* Vertically center the content */
+  margin-top: 0.5rem; /* Add some spacing */
+}
+

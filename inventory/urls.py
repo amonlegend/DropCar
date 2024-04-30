@@ -10,8 +10,7 @@ urlpatterns = [
     path('edit_booking_detail',views.edit_booking_detail, name='edit_booking_detail'),
     
     
-    path('return_url',views.return_url,name="return_url"),
-    path('initiate',views.initkhalti,name="initiate"),
-    path('verify',views.verifyKhalti,name="verify"),
+    path('initkhalti',views.initkhalti,name="initkhalti"),
+    path('return_url/<int:vehicle_id>/', views.return_url, name='return_url')
     
 ]
