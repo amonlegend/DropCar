@@ -33,6 +33,9 @@ def loggedin(request):
 def my_Profile_view(request):
     return render(request, "myProfile.html")
 
+def my_Booking_view(request):
+    return render(request, "myBooking.html")
+
 # check if string is email
 def is_email(string):
     if '@' in string:

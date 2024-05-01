@@ -40,7 +40,13 @@ header{
     align-items: center;
     justify-content: space-between;
     background: #eeeff1;
-    padding: 5px 137px !important;
+    padding: 5px 20px;
+}
+.header-content{
+    max-width: 1262px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
 }
 .logo {
     font-weight: bold;
@@ -50,7 +56,8 @@ header{
 }
 .navbar {
     display: flex;
-    margin-bottom: 0 !important;
+    margin: 0 auto;
+    align-items: center;
 }
 .navbar li {
     position: relative;
@@ -382,6 +389,10 @@ header{
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
         transition: 0.2s ease;
         text-align: left;
+    }
+    .header-content{
+        justify-content: space-between;
+        align-items: center;
     }
     ul.active{
         top: 100%;

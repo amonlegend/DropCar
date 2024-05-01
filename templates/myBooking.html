@@ -1,0 +1,159 @@
+{% extends 'components/base.html' %} {% load static %} {% block style %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/my_booking.css' %}"
+/>
+{% endblock style %} {% block content %}
+<div class="table-container">
+  <div class="tab-bar">
+    <button class="tab-btn active">All</button>
+    <button class="tab-btn">Pending</button>
+    <button class="tab-btn">Completed</button>
+    <button class="tab-btn">Running</button>
+    <button class="tab-btn">Cancelled</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Location</th>
+        <th>Pick Up Date</th>
+        <th>Drop Off Date</th>
+        <th>Cost</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody class="tbody-scroll">
+      <tr>
+        <td>Hatchback</td>
+        <td>Swoyambhu Mahachatiya, BHAGANPAU, Nepal</td>
+        <td>2024-04-26</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td><span class="cancelled">Cancelled</span></td>
+      </tr>
+      <tr>
+        <td>Hatchback</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-04-29</td>
+        <td>2024-04-26</td>
+        <td>Rs 50000</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Swoyambhu Bus stop, Kathmandu, Nepal</td>
+        <td>2024-04-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td><span class="cancelled">Cancelled</span></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-04-30</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Swayambhu, Kathmandu, Nepal</td>
+        <td>2024-03-19</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td><span class="cancelled">Cancelled</span></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SUV (5 Seater)</td>
+        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
+        <td>2024-03-25</td>
+        <td>2024-04-26</td>
+        <td>Rs 0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

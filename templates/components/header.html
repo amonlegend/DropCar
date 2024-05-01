@@ -1,7 +1,9 @@
 
     <header>
-        <!-- Your styled header and navbar here -->
-        <a href="{% url 'index' %}#home" class="logo">DropCar</a>
+        <div class="header-content">
+            
+            <!-- Your styled header and navbar here -->
+            <a href="{% url 'index' %}#home" class="logo">DropCar</a>
             <div class="bx bx-menu" id="menu-icon"></div>
             <ul class="navbar">
                 <li>
@@ -22,27 +24,29 @@
                 <li>
                     <a href="{% url 'index' %}#contact">Contact</a>
                 </li>
-           </ul>
+            </ul>
             <div class="header-btn">
                 {% if user.is_authenticated %}
-                    <div class="dropdown">
-                        {% comment %} <button class="dropbtn">{{ user.full_name|slice:"1" }}</button> {% endcomment %}
-                        {% if user.profile_pic %}
-                        <button class="dropbtn user-profile-pic" style="background-image: url('{{ user.profile_pic.url }}')"></button>
+                <div class="dropdown">
+                    {% comment %} <button class="dropbtn">{{ user.full_name|slice:"1" }}</button> {% endcomment %}
+                    {% if user.profile_pic %}
+                    <button class="dropbtn user-profile-pic" style="background-image: url('{{ user.profile_pic.url }}')"></button>
                     {% else %}
-                        <button class="dropbtn"><i class="fas fa-user"></i></button>
+                    <button class="dropbtn"><i class="fas fa-user"></i></button>
                     {% endif %}
                     
-                        <div class="dropdown-content">
-                            <a href="{% url 'myProfile' %}">My Profile</a>
-                            <a href="{% url 'logout' %}">Log Out</a>
-                        </div>
+                    <div class="dropdown-content">
+                        <a href="{% url 'myProfile' %}">My Profile</a>
+                        <a href="{% url 'my_booking' %}">My Bookings</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
                     </div>
+                </div>
                 {% else %}
-                    {% comment %} <a href="{% url 'login' %}">Sign In</a> {% endcomment %}
-                    <button class="log-in" onclick="window.location.href='{% url 'login' %}'">Sign In</button>
+                {% comment %} <a href="{% url 'login' %}">Sign In</a> {% endcomment %}
+                <button class="log-in" onclick="window.location.href={% url 'login' %}">Sign In</button>
                 {% endif %}
             </div>
-    </header>
+        </div>
+        </header>
 </body>
 </html>
