@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var returnDateInput = document.getElementById("return-datetime");
 
   form.addEventListener("submit", function (event) {
-    var pickupDate = new Date(pickupDateInput.value);
-    var returnDate = new Date(returnDateInput.value);
+    var pickupDate = new Date(pickupDateInput.value + "Z"); // Append 'Z' to indicate UTC time
+    var returnDate = new Date(returnDateInput.value + "Z"); // Append 'Z' to indicate UTC time
     var currentDate = new Date();
 
     // Add 1 minute to the current time to ensure that the current time is not considered as the past

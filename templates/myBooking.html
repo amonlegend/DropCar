@@ -7,16 +7,16 @@
 {% endblock style %} {% block content %}
 <div class="table-container">
   <div class="tab-bar">
-    <button class="tab-btn active">All</button>
-    <button class="tab-btn">Pending</button>
-    <button class="tab-btn">Completed</button>
-    <button class="tab-btn">Running</button>
-    <button class="tab-btn">Cancelled</button>
+    <button class="tab-btn active" data-filter="all">All</button>
+    <button class="tab-btn" data-filter="booked">Booked</button>
+    <button class="tab-btn" data-filter="completed">Completed</button>
+    <button class="tab-btn" data-filter="running">Running</button>
+    <button class="tab-btn" data-filter="cancelled">Cancelled</button>
   </div>
   <table>
     <thead>
       <tr>
-        <th>Type</th>
+        <th>Vehicle</th>
         <th>Location</th>
         <th>Pick Up Date</th>
         <th>Drop Off Date</th>
@@ -25,135 +25,44 @@
       </tr>
     </thead>
     <tbody class="tbody-scroll">
+      {% for booking in bookings %}
       <tr>
-        <td>Hatchback</td>
-        <td>Swoyambhu Mahachatiya, BHAGANPAU, Nepal</td>
-        <td>2024-04-26</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td><span class="cancelled">Cancelled</span></td>
+        <td>{{ booking.vehicle_name }}</td>
+        <td>{{ booking.pickup_location }}</td>
+        <td>{{ booking.pickup_date }}</td>
+        <td>{{ booking.dropoff_date }}</td>
+        <td>{{ booking.total_cost }}</td>
+        <td>{{ booking.status }}</td>
       </tr>
-      <tr>
-        <td>Hatchback</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-04-29</td>
-        <td>2024-04-26</td>
-        <td>Rs 50000</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Swoyambhu Bus stop, Kathmandu, Nepal</td>
-        <td>2024-04-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td><span class="cancelled">Cancelled</span></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-04-30</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Swayambhu, Kathmandu, Nepal</td>
-        <td>2024-03-19</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td><span class="cancelled">Cancelled</span></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>SUV (5 Seater)</td>
-        <td>Pokhara Lakeside, Lakeside Road, Pokhara, Nepal</td>
-        <td>2024-03-25</td>
-        <td>2024-04-26</td>
-        <td>Rs 0</td>
-        <td></td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tableRows = document.querySelectorAll("tbody tr");
+
+    tabButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const filter = button.getAttribute("data-filter");
+        tabButtons.forEach(function (btn) {
+          btn.classList.remove("active");
+        });
+        button.classList.add("active");
+
+        tableRows.forEach(function (row) {
+          const status = row
+            .querySelector("td:nth-child(6)")
+            .innerText.toLowerCase();
+          if (filter === "all" || status === filter) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+</script>
 {% endblock content %}

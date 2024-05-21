@@ -182,6 +182,7 @@ def ForgetMessage(request):
 def update_profile(request):
     if request.method == 'POST':
         if 'update_profile' in request.POST:
+            print("update_profile")
             full_name = request.POST.get('full_name')
             contact = request.POST.get('contact')
             email = request.POST.get('email')
@@ -190,7 +191,7 @@ def update_profile(request):
             user.full_name = full_name
             user.phone = contact
             user.email = email
-            
+            print(full_name, email, contact)
             user.save()
             return redirect('myProfile')  # Redirect to a view named 'my_profile' after updating
             
@@ -201,31 +202,6 @@ def update_profile(request):
             # Optionally, you can also log out the user after deletion
             return redirect('login')  
     return render(request, "myProfile.html")
-
-# def update_profile_pic(request):
-#     if request.method == 'POST':
-#         profile_pic = request.FILES.get('profile_pic')
-        
-#         # Check if a file was uploaded
-#         if profile_pic:
-#             # Define the directory where profile pictures will be stored
-#             profile_pic_dir = os.path.join(settings.MEDIA_ROOT, 'profile_pics')
-            
-#             # Save the uploaded file to the directory
-#             with open(os.path.join(profile_pic_dir, profile_pic.name), 'wb+') as destination:
-#                 for chunk in profile_pic.chunks():
-#                     destination.write(chunk)
-            
-#             # Update the user's profile picture field with the file path
-#             request.user.profile_pic = os.path.join('profile_pics', profile_pic.name)
-#             request.user.save()
-            
-#             messages.success(request, 'Profile picture updated successfully!')
-#             return redirect('myProfile')
-#         else:
-#             messages.error(request, 'No file uploaded.')
-    
-#     return render(request, 'myProfile.html')
 
 
 @login_required
@@ -269,3 +245,6 @@ def update_password(request):
 
     # Pass error_message to the template context
     return render(request, 'myProfile.html',{'error_message':error_message})
+
+
+

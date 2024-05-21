@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -48,4 +50,33 @@ class Vehicle(models.Model):
     status = models.CharField(max_length=100,choices=Status_choices,default="Available")
     
     def __str__(self):
-        return self.name
+        return self.name + "    -   " + str(self.model_year) + "    -   " + str(self.vehicle_number) 
+
+
+
+class Booking(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('booked', 'Booked'),
+        ('cancelled', 'Cancelled'),
+    )
+
+    vehicle_name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    pickup_date = models.DateTimeField()
+    drop_off_date = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.vehicle_name} - {self.user.username}"
+
+    def save(self, *args, **kwargs):
+        if self.status == 'booked':
+            try:
+                vehicle = Vehicle.objects.get(name=self.vehicle_name)
+                vehicle.status = 'booked'
+                vehicle.save()
+            except Vehicle.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)

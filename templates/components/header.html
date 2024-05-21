@@ -13,16 +13,10 @@
                     <a href="{% url 'index' %}#ride">Ride</a>
                 </li>
                 <li>
-                    <a href="{% url 'index' %}#services">Services</a>
-                </li>
-                <li>
                     <a href="{% url 'index' %}#about">About</a>
                 </li>
                 <li>
-                    <a href="{% url 'index' %}#reviews">Reviews</a>
-                </li>
-                <li>
-                    <a href="{% url 'index' %}#contact">Contact</a>
+                    <a href="{% url 'index' %}#contact">Contact Us</a>
                 </li>
             </ul>
             <div class="header-btn">
@@ -42,8 +36,7 @@
                     </div>
                 </div>
                 {% else %}
-                {% comment %} <a href="{% url 'login' %}">Sign In</a> {% endcomment %}
-                <button class="log-in" onclick="window.location.href={% url 'login' %}">Sign In</button>
+                <button class="log-in" onclick="window.location.href='{% url 'login' %}'">Sign In</button>
                 {% endif %}
             </div>
         </div>
