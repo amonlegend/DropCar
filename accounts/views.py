@@ -36,6 +36,10 @@ def my_Profile_view(request):
 def my_Booking_view(request):
     return render(request, "myBooking.html")
 
+def terms_and_conditions_view(request):
+    return render(request, 'terms.html')
+
+
 # check if string is email
 def is_email(string):
     if '@' in string:
@@ -179,36 +183,100 @@ def ForgetMessage(request):
     return render(request, 'forget-message.html')
 
 
+# def update_profile(request):
+#     if request.method == 'POST':
+#         full_name = request.POST.get('full_name')
+#         contact = request.POST.get('contact')
+#         email = request.POST.get('email')
+
+#         has_error = False
+
+#         # Validate full name
+#         if not full_name:
+#             messages.error(request, 'Full name is required.', extra_tags='full_name')
+#             has_error = True
+#         elif len(full_name.split()) < 2:
+#             messages.error(request, 'Please enter a full name with at least two words.', extra_tags='full_name')
+#             has_error = True
+
+#         # Validate contact
+#         if not contact:
+#             messages.error(request, 'Contact number is required.', extra_tags='contact')
+#             has_error = True
+#         elif not (contact.startswith('98') and len(contact) == 10):
+#             messages.error(request, 'Contact number must be 10 digits long and start with 98.', extra_tags='contact')
+#             has_error = True
+
+#         # Validate email
+#         if not email:
+#             messages.error(request, 'Email is required.', extra_tags='email')
+#             has_error = True
+#         elif not email.endswith('@gmail.com'):
+#             messages.error(request, 'Email must end with @gmail.com.', extra_tags='email')
+#             has_error = True
+
+#         if not has_error:
+#             user = request.user
+#             user.full_name = full_name
+#             user.phone = contact
+#             user.email = email
+#             user.save()
+#             messages.success(request, 'Your profile has been updated successfully')
+#             return redirect('myProfile')
+
+#     return render(request, "myProfile.html")
+
+@login_required
 def update_profile(request):
     if request.method == 'POST':
-        if 'update_profile' in request.POST:
-            print("update_profile")
-            full_name = request.POST.get('full_name')
-            contact = request.POST.get('contact')
-            email = request.POST.get('email')
-            
-            user = request.user 
+        full_name = request.POST.get('full_name')
+        contact = request.POST.get('contact')
+        email = request.POST.get('email')
+
+        has_error = False
+
+        # Validate full name
+        if not full_name:
+            messages.error(request, 'Full name is required.', extra_tags='full_name')
+            has_error = True
+        elif len(full_name.split()) < 2:
+            messages.error(request, 'Please enter a full name with at least two words.', extra_tags='full_name')
+            has_error = True
+
+        # Validate contact
+        if not contact:
+            messages.error(request, 'Contact number is required.', extra_tags='contact')
+            has_error = True
+        elif not (contact.startswith('98') and len(contact) == 10):
+            messages.error(request, 'Contact number must be 10 digits long and start with 98.', extra_tags='contact')
+            has_error = True
+
+        # Validate email
+        if not email:
+            messages.error(request, 'Email is required.', extra_tags='email')
+            has_error = True
+        elif not email.endswith('@gmail.com'):
+            messages.error(request, 'Email must end with @gmail.com.', extra_tags='email')
+            has_error = True
+
+        if not has_error:
+            user = request.user
             user.full_name = full_name
             user.phone = contact
             user.email = email
-            print(full_name, email, contact)
             user.save()
-            return redirect('myProfile')  # Redirect to a view named 'my_profile' after updating
-            
-        elif 'delete_profile' in request.POST:
-            user = request.user 
-            # Assuming you want to delete the user from the database
-            user.delete()
-            # Optionally, you can also log out the user after deletion
-            return redirect('login')  
+            print("vayo")
+            messages.success(request, 'Your profile has been updated successfully')
+            return redirect('myProfile')
+
     return render(request, "myProfile.html")
+
 
 
 @login_required
 def update_profile_pic(request):
     if request.method == 'POST':
         profile_pic = request.FILES['profile_pic']
-        print("i am here why fear?",profile_pic)
         request.user.profile_pic = profile_pic
         request.user.save()
         messages.success(request, 'Your profile picture has been updated!')
@@ -217,9 +285,13 @@ def update_profile_pic(request):
 
 
 
-
+@login_required
 def update_password(request):
-    error_message = None  # Initialize error_message to None
+    error_messages = {
+        'old_password_error': None,
+        'new_password_error': None,
+        'confirm_password_error': None
+    }
     
     if request.method == 'POST':
         old_password = request.POST.get('old_password')
@@ -238,13 +310,14 @@ def update_password(request):
                 messages.success(request, 'Your password was successfully updated!')
                 return redirect('login')
             else:
-                messages.error(request, 'New passwords do not match.')
+                error_messages['confirm_password_error'] = 'New passwords do not match.'
         else:
-            # # Set error_message for invalid old password
-            error_message = 'Invalid old password.'
+            error_messages['old_password_error'] = 'Incorrect old password.'
 
-    # Pass error_message to the template context
-    return render(request, 'myProfile.html',{'error_message':error_message})
+    # Pass error_messages to the template context
+    return render(request, 'myProfile.html', {'error_messages': error_messages})
+
+
 
 
 

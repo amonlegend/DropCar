@@ -1,28 +1,13 @@
-// // Get the modal element
-// var modal = document.getElementById("profile_pic_modal");
+// Get the modal element
+var modal = document.getElementById("message-modal");
+var modalClose = document.getElementById("close-info");
 
-// // Get the button that opens the modal
-// var btn = document.getElementById("edit_profile_pic_button");
-
-// // Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// // When the user clicks on the button, open the modal
-// btn.onclick = function() {
-//     modal.style.display = "block";
-// }
-
-// // When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//     modal.style.display = "none";
-// }
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-// }
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modalClose) {
+        modal.style.display = "none";
+    }
+}
 const popupForm = document.getElementById('popupForm');
 const editProfileButton = document.getElementById('edit_profile_pic_button');
 
