@@ -1,12 +1,15 @@
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Location, Vehicle
-
+from django.urls import reverse
+from .models import Location, Vehicle, Booking
+from django.core.mail import send_mail
 from datetime import datetime
 import json
 import uuid
 import requests
 from django.contrib import messages
+from django.utils import timezone
+
 def search_vehicles(request):
     if request.method == "POST":
         # Retrieve form data
@@ -87,29 +90,47 @@ def display_car(request):
 
 
 
+# def View_car(request, vehicle_id):
+#     uuid_value = uuid.uuid4()
+#     # Retrieve the vehicle object using the vehicle_id
+#     vehicle = get_object_or_404(Vehicle, pk=vehicle_id)
+#     # Pass the vehicle object to the template
+#     return render(request, "RentCar.html", {'vehicle': vehicle, 'uuid_value':uuid_value})
 def View_car(request, vehicle_id):
     uuid_value = uuid.uuid4()
-    # Retrieve the vehicle object using the vehicle_id
     vehicle = get_object_or_404(Vehicle, pk=vehicle_id)
-    # Pass the vehicle object to the template
-    return render(request, "RentCar.html", {'vehicle': vehicle, 'uuid_value':uuid_value})
+    is_logged_in = request.user.is_authenticated
+    return render(request, "RentCar.html", {'vehicle': vehicle, 'uuid_value': uuid_value, 'is_logged_in': is_logged_in})
+
 
 # def return_url(request):
 #     return render(request,'payment_success.html')
-
 def initkhalti(request):
     url = "https://a.khalti.com/api/v2/epayment/initiate/"
     user = request.user
 
-
     return_url = request.POST.get('return_url')
-    purchase_order_id = request.POST.get('purchase_order_id')
+    purchase_order_id = str(uuid.uuid4())  # Generate a unique order ID
     amount = request.POST.get('amount')
 
-    print(purchase_order_id)
-    print(amount)
-    print(return_url)
-
+    # Create a booking instance
+    vehicle_name = request.POST.get('vehicle_name')
+    print("the vehicle name is " + vehicle_name)
+    location = request.POST.get('location')
+    pickup_date = request.POST.get('pickup_date')
+    drop_off_date = request.POST.get('drop_off_date')
+    cost = request.POST.get('cost')
+    print("the cost is " + cost)
+    vehicle = Vehicle.objects.get(name=vehicle_name)
+    booking = Booking.objects.create(
+        vehicle=vehicle,
+        location=location,
+        pickup_date=pickup_date,
+        drop_off_date=drop_off_date,
+        cost = cost,
+        status='pending',
+        user=user
+    )
 
     payload = json.dumps({
         "return_url": return_url,
@@ -118,9 +139,9 @@ def initkhalti(request):
         "purchase_order_id": purchase_order_id,
         "purchase_order_name": "Drop Car",
         "customer_info": {
-        "name": user.full_name,
-        "email": user.email,
-        "phone": user.phone
+            "name": user.full_name,
+            "email": user.email,
+            "phone": user.phone  # Assuming phone is a field in a user profile model
         }
     })
     headers = {
@@ -128,16 +149,16 @@ def initkhalti(request):
         'Content-Type': 'application/json',
     }
 
-    response = requests.request("POST", url, headers=headers, data=payload)
-    print(response.text)
-
+    response = requests.post(url, headers=headers, data=payload)
     new_response = json.loads(response.text)
-    print(new_response)
+
+    # Update the booking with the purchase_order_id
+    booking.purchase_order_id = purchase_order_id
+    booking.save()
 
     return redirect(new_response['payment_url'])
 
-
-def return_url(request,vehicle_id):
+def return_url(request, vehicle_id):
     if request.method == 'GET':
         url = "https://a.khalti.com/api/v2/epayment/lookup/"
         headers = {
@@ -146,23 +167,95 @@ def return_url(request,vehicle_id):
         }
         pidx = request.GET.get('pidx')
         data = json.dumps({
-            'vehicle_id': vehicle_id,
             'pidx': pidx
         })
-        print("Data", data)
-        # Make a POST request to the Khalti API to verify payment
+
         res = requests.post(url, headers=headers, data=data)
-        print(res.text)
-
         new_res = json.loads(res.text)
-        print("new_res hai: ", new_res)
 
-        # # Check if payment status is 'Completed'
+        # Print the entire response for debugging
+        print("Response from Khalti API:", new_res)
+
+        # Check if payment status is 'Completed'
         if new_res.get('status') == 'Completed':
             vehicle = Vehicle.objects.get(id=vehicle_id)
-            vehicle.status = 'booked'
+            vehicle.status = 'Booked'
             vehicle.save()
-            messages.success(request, 'Payment Successful!')
 
-    # Pass vehicle_id to the template
+                # Check and print all keys in new_res for debugging
+            print("Keys in response:", new_res.keys())
+
+                # purchase_order_id = new_res.get('transaction_id')
+                # if purchase_order_id is None:
+                #     # Handle missing purchase_order_id
+                #     print("Missing purchase_order_ id:")
+                #     messages.error(request, 'Purchase order ID not found in response.')
+                #     return render(request, 'index.html')
+
+            booking = Booking.objects.get(vehicle = vehicle)
+            booking.status = 'booked'
+            # vehicle = Booking.vehicles.get(booking = vehicle)
+            # vehicle.status = "Booked"
+            # vehicle.save()
+            booking.save()
+            # mail
+            # Send confirmation email
+            # Constructing the email message
+            email_subject = 'Booking Confirmation - DropCar'
+            email_body = f'Dear {booking.user.full_name},\n\n' \
+                        'We are pleased to inform you that your booking has been approved.\n\n' \
+                        'Your booking details are as follows:\n\n' \
+                        f'- Vehicle: {booking.vehicle.name}\n' \
+                        f'- Vehicle Number: {booking.vehicle.vehicle_number}\n' \
+                        f'- Pick Up Location: {booking.location}\n' \
+                        f'- Pick Up Date: {booking.pickup_date}\n' \
+                        f'- Drop Off Date: {booking.drop_off_date}\n' \
+                        f'- Cost: {booking.cost}\n\n' \
+                        'Please visit the specified branch location to pick your vehicle.\n\n' \
+                        'Thank you for choosing DropCar!'
+
+            # Sending the email
+            send_mail(
+                email_subject,
+                email_body,
+                'info.DropCar@gmail.com',  # Sender's email
+                [booking.user.email],  # Recipient's email
+                fail_silently=False,
+            )
+            messages.success(request, 'Payment successful! Your booking has been confirmed.')
+        else:
+            messages.error(request, 'Payment Failed!')
+
     return render(request, 'index.html')
+
+def my_booking(request):
+    user = request.user
+    current_time = timezone.now()
+    
+    # Fetch all bookings for the current user
+    bookings = Booking.objects.filter(user=user)
+    
+    # Separate bookings by status
+    booked = bookings.filter(status="booked")
+    cancelled_bookings = bookings.filter(status="cancelled")
+    running_bookings = bookings.filter(pickup_date__lte=current_time, drop_off_date__gte=current_time)
+    completed_bookings = bookings.filter(drop_off_date__lt=current_time)
+
+    return render(request, 'myBooking.html', {
+        'running_bookings': running_bookings,
+        'completed_bookings': completed_bookings,
+        'cancelled_bookings': cancelled_bookings,
+        'bookings': bookings,
+        'booked': booked,
+    })
+def cancel_booking(request):
+    if request.method == 'POST':
+        booking_id = request.POST.get('booking_id')
+        try:
+            booking = Booking.objects.get(id=booking_id)
+            booking.status = 'cancelled'
+            booking.save()
+        except Booking.DoesNotExist:
+            # Handle case where booking does not exist
+            pass
+    return redirect('my_booking')

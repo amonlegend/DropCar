@@ -22,11 +22,11 @@
                             <h4>Transmission</h4>
                             <div class="filter-option">
                                 <input type="radio" name="transmission" value="manual" id="manual">
-                                <label for="manual"><img src="manual.png" alt="Manual Icon"> Manual</label>
+                                <label for="manual"><img src="static/images/manual.png" alt="Manual Icon"> Manual</label>
                             </div>
                             <div class="filter-option">
                                 <input type="radio" name="transmission" value="automatic" id="automatic">
-                                <label for="automatic"><img src="automatic.png" alt="Automatic Icon"> Automatic</label>
+                                <label for="automatic"><img src="static/images/automatic.png" alt="Automatic Icon"> Automatic</label>
                             </div>
                         </div>
                         <div class="filter-category">
@@ -58,10 +58,6 @@
                                 <input type="radio" name="car_type" value="MUV" id="muv">
                                 <label for="muv">MUV</label>
                             </div>
-                            <div class="filter-option">
-                                <input type="radio" name="car_type" value="Mini Van" id="minivan">
-                                <label for="minivan">Mini Van</label>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -69,28 +65,39 @@
         </div>
         <div class="vehicle-container">
             {% if vehicles %}
-            {% for vehicle in vehicles %}
-            <div class="box">
-                <div class="box-img">
-                    <img src="{{ vehicle.image.url }}" alt="Vehicle">
-                </div>
-                <div class="status_div">
-                <p>{{ vehicle.model_year }}</p>
-                <p class="status">{{ vehicle.status }}</p>
-                </div>
-                <h3>{{ vehicle.name }}</h3>
-                <h2>{{ vehicle.price_per_day }}</span>/Day</h2>
-                <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>
-            </div>
-            {% endfor %}
+                {% for vehicle in vehicles %}
+                    <div class="box">
+                        <div class="box-img">
+                            <img src="{{ vehicle.image.url }}" alt="Vehicle">
+                        </div>
+                        <div class="status_div">
+                            <p>{{ vehicle.model_year }}</p>
+                            <p class="status">{{ vehicle.status }}</p>
+                        </div>
+                        <h3>{{ vehicle.name }}</h3>
+                        <h2>{{ vehicle.price_per_day }}</span>/Day</h2>
+                        {% if vehicle.status == "Booked" %}
+                            <a href="#" class="btn view-details-btn" data-status="{{ vehicle.status }}" onclick="showPopup()">View Details</a>
+                        {% else %}
+                            <a href="{% url 'View_car' vehicle.id %}" class="btn">View Details</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             {% else %}
-            <p>No vehicles available</p>
+                <p>No vehicles available</p>
             {% endif %}
         </div>
         
+                
     </div>
 </section>
-
+<!-- Popup Form -->
+{% comment %} <div id="popupForm" class="popup-form">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <p>This vehicle is already booked.</p>
+    </div>
+</div> {% endcomment %}
 
 <!-- Edit Modal -->
 <div id="editModal" class="modal">
@@ -99,12 +106,8 @@
         <form id="editForm" method="post" action="{% url 'edit_booking_detail' %}">
             {% csrf_token %}
             <div class="input-box">
-                <label for="pickupLocation">Pick Up Location</label>
+                <label for="pickupLocation">Selected Branch</label>
                 <input type="text" id="pickupLocation" name="pickupLocation" value="{{ request.session.pickup_location }}" readonly>
-            </div>
-            <div class="input-box">
-                <label for="dropOffLocation">Drop Off Location</label>
-                <input type="text" id="dropOffLocation" name="dropOffLocation" value="{{ request.session.dropoff_location }}">
             </div>
             <div class="input-box">
                 <label for="pickupDatetime">Pick-Up Date</label>
@@ -118,9 +121,10 @@
         </form>
     </div>
 </div>
-
 <script>
-
+    function showPopup() {
+        alert("This vehicle is already booked.");
+    }
     // Function to open the edit modal
 function openEditModal() {
     var modal = document.getElementById('editModal');
@@ -133,13 +137,11 @@ function closeEditModal() {
     modal.style.display = "none";
 }
 
-
-    document.querySelectorAll('.filter-option input').forEach(function (input) {
-        input.addEventListener('change', function () {
-            document.getElementById('filterForm').submit();
-        });
+document.querySelectorAll('.filter-option input').forEach(function (input) {
+    input.addEventListener('change', function () {
+        document.getElementById('filterForm').submit();
     });
-
+});
 
 // Get the current date and time
 var today = new Date();
@@ -166,6 +168,28 @@ document.getElementById('returnDatetime').min = currentDateTime;
 
 // Log the formatted date and time
 console.log('Formatted Datetime:', currentDateTime);
+
+
+{% comment %} function showPopup() {
+    var popup = document.getElementById("popupForm");
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    var popup = document.getElementById("popupForm");
+    popup.style.display = "none";
+} {% endcomment %}
+
+
+{% comment %} function showPopup() {
+    var popup = document.getElementById("popupForm");
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    var popup = document.getElementById("popupForm");
+    popup.style.display = "none";
+} {% endcomment %}
 
 </script>
 <script src="static/js/locations.js"></script>

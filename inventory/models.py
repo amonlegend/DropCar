@@ -52,31 +52,28 @@ class Vehicle(models.Model):
     def __str__(self):
         return self.name + "    -   " + str(self.model_year) + "    -   " + str(self.vehicle_number) 
 
-
-
 class Booking(models.Model):
     STATUS_CHOICES = (
         ('pending', 'Pending'),
         ('booked', 'Booked'),
         ('cancelled', 'Cancelled'),
+        ('completed', 'Completed'),
     )
 
-    vehicle_name = models.CharField(max_length=100)
+    vehicle = models.ForeignKey(Vehicle, blank=True, null=True, default=None, on_delete=models.CASCADE)
     location = models.CharField(max_length=100)
     pickup_date = models.DateTimeField()
     drop_off_date = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    cost = models.IntegerField()
+    purchase_order_id = models.CharField(max_length=100, unique=True, null=True, blank=True)  
 
     def __str__(self):
-        return f"{self.vehicle_name} - {self.user.username}"
+        return f"{self.vehicle} - {self.user.full_name}"
 
     def save(self, *args, **kwargs):
-        if self.status == 'booked':
-            try:
-                vehicle = Vehicle.objects.get(name=self.vehicle_name)
-                vehicle.status = 'booked'
-                vehicle.save()
-            except Vehicle.DoesNotExist:
-                pass
+        if self.status == 'booked' and self.vehicle:
+            self.vehicle.status = 'booked'
+            self.vehicle.save()
         super().save(*args, **kwargs)

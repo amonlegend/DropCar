@@ -249,3 +249,34 @@ input {
 .error-render{
 	color: red;
 }
+
+
+.black_p{
+	font-weight: 400;
+	color: #000;
+}
+
+.password-container {
+	position: relative;
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+  }
+  .view-show {
+	width: 20px;
+	content: url("../images/eye_show.svg");
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 6px;
+	cursor: pointer;
+  }
+  .view-hide {
+	width: 20px;
+	content: url("../images/eye_hide.svg");
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 6px;
+	cursor: pointer;
+  }

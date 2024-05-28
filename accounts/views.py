@@ -33,8 +33,6 @@ def loggedin(request):
 def my_Profile_view(request):
     return render(request, "myProfile.html")
 
-def my_Booking_view(request):
-    return render(request, "myBooking.html")
 
 def terms_and_conditions_view(request):
     return render(request, 'terms.html')
@@ -183,48 +181,48 @@ def ForgetMessage(request):
     return render(request, 'forget-message.html')
 
 
-# def update_profile(request):
-#     if request.method == 'POST':
-#         full_name = request.POST.get('full_name')
-#         contact = request.POST.get('contact')
-#         email = request.POST.get('email')
+def update_profile(request):
+    if request.method == 'POST':
+        full_name = request.POST.get('full_name')
+        contact = request.POST.get('contact')
+        email = request.POST.get('email')
 
-#         has_error = False
+        has_error = False
 
-#         # Validate full name
-#         if not full_name:
-#             messages.error(request, 'Full name is required.', extra_tags='full_name')
-#             has_error = True
-#         elif len(full_name.split()) < 2:
-#             messages.error(request, 'Please enter a full name with at least two words.', extra_tags='full_name')
-#             has_error = True
+        # # Validate full name
+        # if not full_name:
+        #     messages.error(request, 'Full name is required.', extra_tags='full_name')
+        #     has_error = True
+        # elif len(full_name.split()) < 2:
+        #     messages.error(request, 'Please enter a full name with at least two words.', extra_tags='full_name')
+        #     has_error = True
 
-#         # Validate contact
-#         if not contact:
-#             messages.error(request, 'Contact number is required.', extra_tags='contact')
-#             has_error = True
-#         elif not (contact.startswith('98') and len(contact) == 10):
-#             messages.error(request, 'Contact number must be 10 digits long and start with 98.', extra_tags='contact')
-#             has_error = True
+        # # Validate contact
+        # if not contact:
+        #     messages.error(request, 'Contact number is required.', extra_tags='contact')
+        #     has_error = True
+        # elif not (contact.startswith('98') and len(contact) == 10):
+        #     messages.error(request, 'Contact number must be 10 digits long and start with 98.', extra_tags='contact')
+        #     has_error = True
 
-#         # Validate email
-#         if not email:
-#             messages.error(request, 'Email is required.', extra_tags='email')
-#             has_error = True
-#         elif not email.endswith('@gmail.com'):
-#             messages.error(request, 'Email must end with @gmail.com.', extra_tags='email')
-#             has_error = True
+        # # Validate email
+        # if not email:
+        #     messages.error(request, 'Email is required.', extra_tags='email')
+        #     has_error = True
+        # elif not email.endswith('@gmail.com'):
+        #     messages.error(request, 'Email must end with @gmail.com.', extra_tags='email')
+        #     has_error = True
 
-#         if not has_error:
-#             user = request.user
-#             user.full_name = full_name
-#             user.phone = contact
-#             user.email = email
-#             user.save()
-#             messages.success(request, 'Your profile has been updated successfully')
-#             return redirect('myProfile')
+        if not has_error:
+            user = request.user
+            user.full_name = full_name
+            user.phone = contact
+            user.email = email
+            user.save()
+            messages.success(request, 'Your profile has been updated successfully')
+            return redirect('myProfile')
 
-#     return render(request, "myProfile.html")
+    return render(request, "myProfile.html")
 
 @login_required
 def update_profile(request):
@@ -236,28 +234,28 @@ def update_profile(request):
         has_error = False
 
         # Validate full name
-        if not full_name:
-            messages.error(request, 'Full name is required.', extra_tags='full_name')
-            has_error = True
-        elif len(full_name.split()) < 2:
-            messages.error(request, 'Please enter a full name with at least two words.', extra_tags='full_name')
-            has_error = True
+        # if not full_name:
+        #     messages.error(request, 'Full name is required.', extra_tags='full_name')
+        #     has_error = True
+        # elif len(full_name.split()) < 2:
+        #     messages.error(request, 'Please enter a full name with at least two words.', extra_tags='full_name')
+        #     has_error = True
 
-        # Validate contact
-        if not contact:
-            messages.error(request, 'Contact number is required.', extra_tags='contact')
-            has_error = True
-        elif not (contact.startswith('98') and len(contact) == 10):
-            messages.error(request, 'Contact number must be 10 digits long and start with 98.', extra_tags='contact')
-            has_error = True
+        # # Validate contact
+        # if not contact:
+        #     messages.error(request, 'Contact number is required.', extra_tags='contact')
+        #     has_error = True
+        # elif not (contact.startswith('98') and len(contact) == 10):
+        #     messages.error(request, 'Contact number must be 10 digits long and start with 98.', extra_tags='contact')
+        #     has_error = True
 
-        # Validate email
-        if not email:
-            messages.error(request, 'Email is required.', extra_tags='email')
-            has_error = True
-        elif not email.endswith('@gmail.com'):
-            messages.error(request, 'Email must end with @gmail.com.', extra_tags='email')
-            has_error = True
+        # # Validate email
+        # if not email:
+        #     messages.error(request, 'Email is required.', extra_tags='email')
+        #     has_error = True
+        # elif not email.endswith('@gmail.com'):
+        #     messages.error(request, 'Email must end with @gmail.com.', extra_tags='email')
+        #     has_error = True
 
         if not has_error:
             user = request.user
@@ -285,13 +283,44 @@ def update_profile_pic(request):
 
 
 
+# @login_required
+# def update_password(request):
+#     error_messages = {
+#         'old_password_error': None,
+#         'new_password_error': None,
+#         'confirm_password_error': None
+#     }
+    
+#     if request.method == 'POST':
+#         old_password = request.POST.get('old_password')
+#         new_password1 = request.POST.get('new_password1')
+#         new_password2 = request.POST.get('new_password2')
+
+#         user = request.user
+
+#         # Check if the old password matches the password in the database
+#         if check_password(old_password, user.password):
+#             # Check if the new passwords match
+#             if new_password1 == new_password2:
+#                 # Update the user's password
+#                 user.set_password(new_password1)
+#                 user.save()
+#                 messages.success(request, 'Your password was successfully updated!')
+#                 return redirect('login')
+#             else:
+#                 error_messages['confirm_password_error'] = 'New passwords do not match.'
+#         else:
+#             error_messages['old_password_error'] = 'Incorrect old password.'
+
+#     # Pass error_messages to the template context
+#     return render(request, 'myProfile.html', {'error_messages': error_messages})
+
+
+
+
 @login_required
 def update_password(request):
-    error_messages = {
-        'old_password_error': None,
-        'new_password_error': None,
-        'confirm_password_error': None
-    }
+    error_message = None  # Initialize error_message to None
     
     if request.method == 'POST':
         old_password = request.POST.get('old_password')
@@ -307,17 +336,13 @@ def update_password(request):
                 # Update the user's password
                 user.set_password(new_password1)
                 user.save()
-                messages.success(request, 'Your password was successfully updated!')
+                # messages.success(request, 'Your password was successfully updated!')
                 return redirect('login')
-            else:
-                error_messages['confirm_password_error'] = 'New passwords do not match.'
+            # else:
+            #     messages.error(request, 'New passwords do not match.')
         else:
-            error_messages['old_password_error'] = 'Incorrect old password.'
+            # Set error_message for invalid old password
+            error_message = 'Invalid old password.'
 
-    # Pass error_messages to the template context
-    return render(request, 'myProfile.html', {'error_messages': error_messages})
-
-
-
-
-
+    # Pass error_message to the template context
+    return render(request, 'myProfile.html', {'error_message': error_message})

@@ -18,8 +18,13 @@
 <div class="container" id="container">
 
 	<div class="form-container sign-in-container">
+		<form action="" method="POST">
+            {% csrf_token %}
 			<h1>Forgot Password</h1>
-            <p>Please check your email for further instructions.</p>
+			<p class="black_p">Check your Email for further instructions </p>
+			<input type="hidden" name="email" id="email-input-field" placeholder="Email" />
+			{% comment %} <button type="submit">Submit</button> {% endcomment %}
+		</form>
 	</div>
 	<div class="overlay-container">
 		<div class="overlay">

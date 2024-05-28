@@ -1,6 +1,9 @@
-{% extends 'components/base.html' %} {% load static %} {% block style %}
+{% extends 'components/base.html' %}
+{% load static %}
+{% block style %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/RentCar.css' %}" />
-{% endblock style %} {% block content %}
+{% endblock style %}
+{% block content %}
 <section class="section-content">
   <div class="details-container">
     <div class="vehicle-container">
@@ -12,25 +15,32 @@
         <p><strong>Vehicle name:</strong> {{ vehicle.name }}</p>
         <p><strong>Category:</strong> {{ vehicle.Vehicle_Type }}</p>
         <p><strong>Year:</strong> {{ vehicle.model_year }}</p>
-        <p><strong>Price:</strong> {{ vehicle.price_per_day }}</p>
+        <p><strong>Price:</strong> Rs {{ vehicle.price_per_day }}</p>
         <p><strong>Features:</strong> GPS, Leather Seats, Sunroof</p>
       </div>
     </div>
     <div class="booking-card">
-      <div class="estimated-amount">
-        <p>Total Amount</p>
-        <h2 id="total-amount">Rs. 0</h2>
-      </div>
-      <div class="checkbox-container">
-        <input type="checkbox" id="terms" name="terms" />
-        <label for="terms">Accept 
-        <a href="templates/terms.html">Terms and Conditions</a></label>
-      </div>
       <form action="{% url 'initkhalti' %}" method="POST">
         {% csrf_token %}
-        <input type="hidden" name="purchase_order_id" value="{{ uuid_value }}"  id="pid">
+        <div class="estimated-amount">
+          <p class="payment-title">Total Amount</p>
+          <label for="cost" class="label-primary">Rs. </label>
+          <input name="cost" id="total-amount" value="0"></input>
+          <input hidden name="cost" id="total-amount-khalti" value="0"></input>
+        </div>
+        <div class="checkbox-container">
+          <input class="form-control" type="checkbox" id="terms" name="terms" required/>
+          <label for="terms">Accept 
+          <a href="templates/terms.html">Terms and Conditions</a></label>
+        </div>
+        <input type="hidden" name="purchase_order_id" value="{{ uuid_value }}" id="pid">
         <input type="hidden" name="amount" value="10000" id="amt">
-        <input type="submit" class="book-btn"  value="Pay with Khalti" name="" id="">
+        <input type="hidden" name="vehicle_name" value="{{ vehicle.name }}" id="amt">
+        <input type="hidden" name="location" value="{{ request.session.pickup_location }}" id="amt">
+        <input type="hidden" name="pickup_date" value="{{ request.session.pickup_datetime }}" id="amt">
+        <input type="hidden" name="drop_off_date" value="{{ request.session.return_datetime }}" id="amt">
+        
+        <input type="submit" class="book-btn" value="Pay with Khalti" name="" id="payWithKhaltiButton">
         <input type="hidden" name="return_url" value="http://127.0.0.1:8000/return_url/{{ vehicle.id }}">
     </form>
     </div>
@@ -90,43 +100,70 @@
       </div>
   </div> 
 </section>
+<!-- HTML structure for the blurred background -->
+<div id="blurOverlay" class="blur-background">
+</div>
+<div id="signinPopup" class="popup">
+  <span class="close-btn material-symbols-rounded" onclick="closeSignInPopup()">close</span>
+  <h2>Sign In Required</h2>
+  <p>You need to sign in to proceed with the payment.</p>
+  <a href="{% url 'login' %}" class="btn btn-primary">Sign In</a>
+</div>
 
 <script>
-  // Get the pickup and return date strings from the session
-  var pickupDateString = "{{ request.session.pickup_datetime }}";
-  var returnDateString = "{{ request.session.return_datetime }}";
+// Get the pickup and return date strings from the session
+var pickupDateString = "{{ request.session.pickup_datetime }}";
+var returnDateString = "{{ request.session.return_datetime }}";
 
-  // Parse the date strings to Date objects
-  var pickupDate = new Date(pickupDateString);
-  var returnDate = new Date(returnDateString);
+// Parse the date strings to Date objects
+var pickupDate = new Date(pickupDateString);
+var returnDate = new Date(returnDateString);
 
-  // Calculate the duration in milliseconds
-  var durationMillis = returnDate - pickupDate;
+// Calculate the duration in milliseconds
+var durationMillis = returnDate - pickupDate;
 
-  // Convert the duration to days
-  var durationDays = durationMillis / (1000 * 60 * 60 * 24);
+// Convert the duration to days
+var durationDays = durationMillis / (1000 * 60 * 60 * 24);
 
-  // Retrieve the price per day of the vehicle (assuming it's available in the template context)
-  var pricePerDay = {{ vehicle.price_per_day }};
+// Retrieve the price per day of the vehicle (assuming it's available in the template context)
+var pricePerDay = {{ vehicle.price_per_day }};
 
-  // Calculate the total amount
-  var totalAmount = Math.floor(durationDays) * pricePerDay;
+// Calculate the total amount
+var totalAmount = Math.floor(durationDays) * pricePerDay;
 
-  // Display the total amount in the HTML element
-  document.getElementById("total-amount").textContent = "Rs. " + totalAmount;
+// Display the total amount in the HTML element
+document.getElementById("total-amount").value = totalAmount;
+document.getElementById("total-amount-khalti").value = totalAmount;
 
-  {% comment %} this js is for the pop-up form {% endcomment %}
-  // Function to open the pop-up
+// Pop-up form handling
 document.getElementById('openPopup').addEventListener('click', function() {
   document.getElementById('popup').style.display = 'block';
   document.getElementById('popupOverlay').style.display = 'block';
 });
 
-// Function to close the pop-up
 document.getElementById('closePopup').addEventListener('click', function() {
   document.getElementById('popup').style.display = 'none';
   document.getElementById('popupOverlay').style.display = 'none';
 });
 
+function openSignInPopup() {
+  document.getElementById('signinPopup').style.display = 'block';
+  document.getElementById('blurOverlay').classList.add('blur-background'); // Add blur effect to the background
+}
+
+function closeSignInPopup() {
+  document.getElementById('signinPopup').style.display = 'none';
+  document.getElementById('blurOverlay').classList.remove('blur-background'); // Remove blur effect from the background
+}
+
+// Handle the "Pay with Khalti" button click
+document.getElementById('payWithKhaltiButton').addEventListener('click', function(event) {
+  var isLoggedIn = {{ is_logged_in|yesno:"true,false" }};  // Use the is_logged_in context variable
+  
+  if (!isLoggedIn) {
+      openSignInPopup();
+      event.preventDefault();  // Prevent form submission
+  }
+});
 </script>
 {% endblock content %}

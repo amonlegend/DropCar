@@ -1,10 +1,12 @@
 {% extends 'components/base.html' %} {% load static %} {% block style %}
 <link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'css/my_booking.css' %}"
+rel="stylesheet"
+type="text/css"
+href="{% static 'css/my_booking.css' %}"
 />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock style %} {% block content %}
+
 <div class="table-container">
   <div class="tab-bar">
     <button class="tab-btn active" data-filter="all">All</button>
@@ -12,57 +14,297 @@
     <button class="tab-btn" data-filter="completed">Completed</button>
     <button class="tab-btn" data-filter="running">Running</button>
     <button class="tab-btn" data-filter="cancelled">Cancelled</button>
-  </div>
-  <table>
+</div>
+
+
+{% if bookings %}
+<table id="all" class="active">
     <thead>
-      <tr>
-        <th>Vehicle</th>
-        <th>Location</th>
-        <th>Pick Up Date</th>
-        <th>Drop Off Date</th>
-        <th>Cost</th>
-        <th>Status</th>
-      </tr>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
     </thead>
     <tbody class="tbody-scroll">
-      {% for booking in bookings %}
-      <tr>
-        <td>{{ booking.vehicle_name }}</td>
-        <td>{{ booking.pickup_location }}</td>
-        <td>{{ booking.pickup_date }}</td>
-        <td>{{ booking.dropoff_date }}</td>
-        <td>{{ booking.total_cost }}</td>
-        <td>{{ booking.status }}</td>
-      </tr>
-      {% endfor %}
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.vehicle.name }}</td>
+            <td>{{ booking.location }}</td>
+            <td>{{ booking.pickup_date }}</td>
+            <td>{{ booking.drop_off_date }}</td>
+            <td>{{ booking.cost }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
     </tbody>
-  </table>
+</table>
+{% else %}
+{% if not bookings %}
+<table id="all">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">No All bookings</td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
+
+{% if booked %}
+<table id="booked">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="tbody-scroll">
+        {% for booking in booked %}
+        <tr>
+            <td>{{ booking.vehicle.name }}</td>
+            <td>{{ booking.location }}</td>
+            <td>{{ booking.pickup_date }}</td>
+            <td>{{ booking.drop_off_date }}</td>
+            <td>{{ booking.cost }}</td>
+            <td>{{ booking.status }}</td>
+            <td><form action="{% url 'cancel_booking' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                <button type="submit" class="cancel-btn">Cancel</button>
+             </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% if not booked %}
+<table id="booked">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">No Booked bookings</td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
+
+{% if completed_bookings %}
+<table id="completed">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody class="tbody-scroll">
+        {% for booking in completed_bookings %}
+        <tr>
+            <td>{{ booking.vehicle.name }}</td>
+            <td>{{ booking.location }}</td>
+            <td>{{ booking.pickup_date }}</td>
+            <td>{{ booking.drop_off_date }}</td>
+            <td>{{ booking.cost }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% if not completed_bookings %}
+<table id="completed">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">No Completed bookings</td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
+
+
+{% if running_bookings %}
+<table id="running">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody class="tbody-scroll">
+        {% for booking in running_bookings %}
+        <tr>
+            <td>{{ booking.vehicle.name }}</td>
+            <td>{{ booking.location }}</td>
+            <td>{{ booking.pickup_date }}</td>
+            <td>{{ booking.drop_off_date }}</td>
+            <td>{{ booking.cost }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% if not running_bookings %}
+<table id="running">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">No Running bookings</td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
+
+{% if cancelled_bookings %}
+<table id="cancelled">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody class="tbody-scroll">
+        {% for booking in cancelled_bookings %}
+        <tr>
+            <td>{{ booking.vehicle.name }}</td>
+            <td>{{ booking.location }}</td>
+            <td>{{ booking.pickup_date }}</td>
+            <td>{{ booking.drop_off_date }}</td>
+            <td>{{ booking.cost }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% if not cancelled_bookings %}
+<table id="cancelled">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Location</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">No Cancelled bookings</td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
 </div>
 <script>
+ 
   document.addEventListener("DOMContentLoaded", function () {
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const tableRows = document.querySelectorAll("tbody tr");
-
-    tabButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const filter = button.getAttribute("data-filter");
-        tabButtons.forEach(function (btn) {
-          btn.classList.remove("active");
-        });
-        button.classList.add("active");
-
-        tableRows.forEach(function (row) {
-          const status = row
-            .querySelector("td:nth-child(6)")
-            .innerText.toLowerCase();
-          if (filter === "all" || status === filter) {
-            row.style.display = "table-row";
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tables = {
+      all: document.getElementById('all'),
+      booked: document.getElementById('booked'),
+      completed: document.getElementById('completed'),
+      running: document.getElementById('running'),
+      cancelled: document.getElementById('cancelled')
+    };
+  
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+  
+        for (const tableId in tables) {
+          if (tableId === filter) {
+            tables[tableId].style.display = 'table';
           } else {
-            row.style.display = "none";
+            tables[tableId].style.display = 'none';
           }
-        });
+        }
+  
+        // Additionally, filter table rows if filter is not "all"
+        if (filter !== 'all') {
+          const tableRows = tables[filter].querySelectorAll('tbody tr');
+          tableRows.forEach(row => {
+            const status = row.querySelector('td:nth-child(6)').innerText.toLowerCase();
+            if (status === filter) {
+              row.style.display = 'table-row';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        }
       });
     });
+  
+    // Initialize by showing the "all" table
+    tabButtons[0].click();
   });
+  
+
 </script>
 {% endblock content %}

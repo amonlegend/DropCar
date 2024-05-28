@@ -9,8 +9,12 @@
 
 {% block content %}
 <div class="container">
+
+    {% include 'messages.html' %}
+
+
     <!-- General Update Messages -->
-    {% if messages %}
+    {% comment %} {% if messages %}
 			<div class="container mt-3" id="message-modal">
 				{% for message in messages %}
 				{% if message.tags == 'success' %}
@@ -21,7 +25,7 @@
 	                {% endif %}
             {% endfor %}
         </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <div class="row">
         <div class="col-12">
             <!-- Page title -->
@@ -35,57 +39,42 @@
                 <!-- Contact detail and Upload profile -->
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <!-- Contact detail form -->
-                    <form method="post" class="file-upload" action="{% url 'update_profile' %}">
+                    <form method="post" class="file-upload" action="{% url 'update_profile' %}" id="profileForm">
                         {% csrf_token %}
                         <div class="bg-secondary-soft px-4 py-5 rounded">
                             <div class="row g-3">
-                                <h4 class="mb-4 mt-0">Contact detail</h4>
+                                <h4 class="mb-4 mt-0">Contact Details</h4>
                                 
                                 <!-- Full Name -->
                                 <div class="col-md-12">
                                     <label for="full_name" class="form-label">Full Name *</label>
                                     <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user.full_name }}">
-                                    {% for message in messages %}
-                                        {% if 'full_name' in message.tags %}
-                                            <div class="alert-danger mt-2 small" role="alert" style="color: red;">
-                                                {{ message }}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                    <div id="full_name_error" class="error-message"></div>
                                 </div>
                                 
-                                <!-- Mobile number -->
+                                <!-- Mobile Number -->
                                 <div class="col-md-12">
-                                    <label for="phone_number" class="form-label">Mobile number *</label>
-                                    <input type="text" class="form-control" id="phone_number" name="contact" value="{{ user.phone }}">
-                                    {% for message in messages %}
-                                        {% if 'contact' in message.tags %}
-											<div class="alert-danger mt-2 small" role="alert" style="color: red;">
-                                                {{ message }}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                    <label for="phone_number" class="form-label">Mobile Number *</label>
+                                    <input type="tel" class="form-control" id="phone_number" name="contact" value="{{ user.phone }}">
+                                    <div id="phone_number_error" class="error-message"></div>
                                 </div>
                                 
                                 <!-- Email -->
                                 <div class="col-md-12">
                                     <label for="inputEmail4" class="form-label">Email *</label>
-                                    <input type="email" class="form-control" id="inputEmail4" name="email" value="{{ user.email }}">
-                                    {% for message in messages %}
-                                        {% if 'email' in message.tags %}
-                                            <div class="alert alert-danger mt-2 small" role="alert" style="color: red;">
-                                                {{ message }}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                    <input type="text" class="form-control" id="inputEmail4" name="email" value="{{ user.email }}">
+                                    <div id="email_error" class="error-message"></div>
                                 </div>
                             </div> <!-- Row END -->
                         </div>
                         <div class="d-flex justify-content-between mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg" name="update_profile">Update profile</button>
-                            <button type="submit" class="btn btn-danger btn-lg" name="delete_profile">Delete profile</button>
+                            <button type="submit" class="btn btn-primary btn-lg" name="update_profile">Update Profile</button>
+                            <button type="submit" class="btn btn-danger btn-lg" name="delete_profile">Delete Profile</button>
                         </div>
                     </form>
+                    
+                    
+                    
                 </div>
                 
                 <!-- Upload profile form -->
@@ -115,7 +104,7 @@
             
             <!-- Change Password -->
             <div class="row mb-5 gx-5">
-				<form action="{% url 'update_password' %}" method="post">
+            <form method="post" action="{% url 'update_password' %}" name="passwordForm" onsubmit="return validatePasswordForm()">
 					{% csrf_token %}
 					<div class="col-md-12 col-lg-8 mt-2">
 						<div class="bg-secondary-soft px-4 py-5 rounded change-password">
@@ -126,33 +115,25 @@
 								<div class="col-md-12 col-sd-6">
 									<label for="exampleInputPassword1" class="form-label">Old password *</label>
 									<input type="password" class="form-control" name="old_password" id="exampleInputPassword1">
-									{% if error_messages.old_password_error %}
-									<div class="alert-danger mt-2 small" role="alert" style="color: red">
-										{{ error_messages.old_password_error }}
-									</div>
-									{% endif %}
+                                    {% if error_message %}
+                                    <div class="error-message">
+                                      {{ error_message }}
+                                    </div>
+                                    {% endif %} 
 								</div>
 
 								<!-- New password -->
 								<div class="col-md-12">
 									<label for="exampleInputPassword2" class="form-label">New password *</label>
 									<input type="password" class="form-control" name="new_password1" id="exampleInputPassword2">
-									{% if error_messages.new_password_error %}
-									<div class="alert-danger mt-2 small" role="alert" style="color: red">
-										{{ error_messages.new_password_error }}
-									</div>
-									{% endif %}
+                                    <div class="error-message" id="password-error"></div>
 								</div>
 
 								<!-- Confirm password -->
 								<div class="col-md-12">
 									<label for="exampleInputPassword3" class="form-label">Confirm Password *</label>
 									<input type="password" class="form-control" name="new_password2" id="exampleInputPassword3">
-									{% if error_messages.confirm_password_error %}
-									<div class="alert-danger mt-2 small" role="alert" style="color: red">
-										{{ error_messages.confirm_password_error }}
-									</div>
-									{% endif %}
+                                    <div class="error-message" id="confirm-password-error"></div>
 								</div>
 
 							</div>
@@ -181,6 +162,7 @@
     </form>
 </div>
 <script src="static/js/uploadPopup.js"></script>
+<script src="static/js/user_valid.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
